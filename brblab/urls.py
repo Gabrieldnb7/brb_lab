@@ -16,7 +16,18 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from checkin.views import login, register, home
+from users.views import profile
+from subscription.views import events, myEvents, event
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', home),
+    path('login/', login),
+    path('cadastro/', register),
+    path('perfil/', profile),
+    path('eventos/', events),
+    path('meusEventos/', myEvents),
+    path('evento/', event)
 ]
