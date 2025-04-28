@@ -1,7 +1,7 @@
 body{
     height: 100%;
     margin: 0;
-    background: linear-gradient(135deg, #c94b4b, #62135d, #000035);
+    background: linear-gradient(#D38E44, #a42453, #0D0458);
     background-size: cover;
 }
 .central {
@@ -9,6 +9,6 @@ body{
     border-radius: 15px;
     padding: 20px;
     margin: 20px;
-    min-height: 90vh;
+    min-height: 94vh;
     box-shadow: 0 4px 8px rgba(0,0,0,0);
 }
