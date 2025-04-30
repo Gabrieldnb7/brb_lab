@@ -18,16 +18,16 @@ from django.contrib import admin
 from django.urls import path
 from access.views import login, register, home
 from users.views import profile
-from subscription.views import events, myEvents, event
+from event.views import events, myEvents, event
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', home),
-    path('login/', login),
-    path('cadastro/', register),
-    path('perfil/', profile),
-    path('eventos/', events),
-    path('meusEventos/', myEvents),
-    path('evento/', event)
+    path('', home, name='home'),
+    path('login/', login, name='login'),
+    path('cadastro/', register, name='register'),
+    path('perfil/', profile, name='profile'),
+    path('eventos/', events, name='events'),
+    path('meusEventos/', myEvents, name='myEvents'),
+    path('evento/', event, name='event')
 ]
