@@ -14,6 +14,7 @@ import os
 from dotenv import load_dotenv
 from pathlib import Path
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv(os.path.join(BASE_DIR, '.env'))
@@ -83,7 +84,7 @@ DATABASES = {
         'NAME': 'brblab',
         'USER': str(os.getenv('DB_USER')),
         'PASSWORD': str(os.getenv('DB_PASSWORD')),
-        'HOST': os.getenv('APP_URLS'),
+        'HOST': os.getenv('DB_HOST'),
         'PORT': str(os.getenv('DB_PORT'))
     }
 }
