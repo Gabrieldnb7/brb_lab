@@ -1,5 +1,5 @@
 from django.db import models
-from users import Usuario  
+from users.models import Usuario  
 
 class Inscricao(models.Model):
     id_inscricao = models.AutoField(primary_key=True)
