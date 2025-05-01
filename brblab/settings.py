@@ -84,7 +84,7 @@ DATABASES = {
         'NAME': 'brblab',
         'USER': str(os.getenv('DB_USER')),
         'PASSWORD': str(os.getenv('DB_PASSWORD')),
-        'HOST': os.getenv('DB_HOST'),
+        'HOST': os.getenv('APP_URLS'),
         'PORT': str(os.getenv('DB_PORT'))
     }
 }
