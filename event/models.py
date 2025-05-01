@@ -3,8 +3,8 @@ from users.models import Usuario
 
 class Inscricao(models.Model):
     id_inscricao = models.AutoField(primary_key=True)
-    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, db_column='IdUsuario')
-    id_evento = models.CharField(max_length=45, db_column='IdEvento')  # Substitua por ForeignKey(Evento) no futuro
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, db_column='id_usuario')
+    id_evento = models.CharField(max_length=45, db_column='id_evento')  # Substitua por ForeignKey(Evento) no futuro
 
     class Meta:
         db_table = 'inscricoes'
