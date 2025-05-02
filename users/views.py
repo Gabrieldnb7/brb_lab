@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib import auth
+from .forms import UserRegistrationForm
 from .models import Usuario
-from django.contrib.auth.hashers import make_password
-from django.contrib import messages
+
 
 # Create your views here.
 def profile(request):
@@ -11,40 +11,24 @@ def profile(request):
 
 def register(request):
     if request.method == 'POST':
-        nome         = request.POST.get('nome')
-        email        = request.POST.get('email')
-        cpf          = request.POST.get('cpf')
-        telefone     = request.POST.get('telefone')
-        lotacao      = request.POST.get('lotacao') or None
-        matricula    = request.POST.get('matricula') or None
-        tipo_usuario = request.POST.get('tipo_usuario')
-        senha_raw    = request.POST.get('senha')
-        
-        # Verificações básicas
-        if Usuario.objects.filter(cpf=cpf).exists():
-            messages.error(request, 'CPF já cadastrado.')
-            return render(request, 'register.html')
-        if Usuario.objects.filter(email=email).exists():
-            messages.error(request, 'E-mail já cadastrado.')
-            return render(request, 'register.html')
+        form = UserRegistrationForm(request.POST)
+        if form.is_valid():
+            Usuario.objects.create(
+                nome=form.cleaned_data['nome'],
+                email=form.cleaned_data['email'],
+                cpf=form.cleaned_data['cpf'],
+                telefone=form.cleaned_data['telefone'],
+                lotacao=form.cleaned_data.get('lotacao'),
+                matricula=form.cleaned_data.get('matricula'),
+                tipo_usuario='cliente',
+                senha=form.cleaned_data['senha']
+            )
+            return HttpResponse("Usuário registrado com sucesso!")
+        else:
+            return HttpResponse(f"Erros no formulário: {form.errors}", status=400)
 
-        # Criptografa a senha
-        senha_hash = make_password(senha_raw)
-
-        Usuario.objects.create(
-            nome=nome,
-            email=email,
-            cpf=cpf,
-            telefone=telefone,
-            lotacao=lotacao,
-            matricula=matricula,
-            tipo_usuario=tipo_usuario,
-            senha=senha_hash
-        )
-
-        messages.success(request, 'Cadastro realizado com sucesso! Faça login.')
-        return redirect('login')
-    return render(request, 'register.html')
+    else:
+        return HttpResponse("Apenas POST é permitido.", status=405)
 
 
 def logout(request):
