@@ -16,8 +16,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from access.views import login, register, home
-from users.views import profile
+from access.views import login, home
+from users.views import profile, register
 from event.views import events, myEvents, event
 
 
