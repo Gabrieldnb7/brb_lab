@@ -93,7 +93,7 @@ e dentro deste arquivo colaremos as seguintes informações:
 ```
 SECRET_KEY = sua_secret_key
 ALLOWED_HOSTS = localhost,127.0.0.1
-DB_HOST = 127.0.0.1
+APP_URLS = 127.0.0.1
 DB_PORT = 3306
 DB_USER = seu_usuario_mysql
 DB_PASSWORD = sua_senha_mysql
