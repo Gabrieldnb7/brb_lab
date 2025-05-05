@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel= "stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="d-flex justify-content-center align-items-center vh-100">
+        <div class="container central">
+            <div>
+                <form class="cadastro">
+                    <div class="mb-3">
+                      <label for="exampleInputEmail1" class="form-label">Email</label>
+                      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                      <div id="emailHelp" class="form-text"></div>
+                    </div>
+
+                    <div class="mb-3">
+                      <label for="exampleInputPassword1" class="form-label">Senha</label>
+                      <input type="password" class="form-control" id="exampleInputPassword1">
+                    </div>
+
+                    <div class="mb-3">
+                      <label for="exampleInputName1" class="form-label">Nome</label>
+                      <input type="name" class="form-control" id="exampleInputName1" aria-describedby="nameHelp">
+                      <div id="nameHelp" class="form-text"></div>
+                    </div>
+
+                    <div class="mb-3">
+                      <label for="exampleInputCPF1" class="form-label">CPF</label>
+                      <input type="text" class="form-control" id="exampleInputCPF1" aria-describedby="CPFHelp" maxlength="14">
+                      <div id="CPFHelp" class="form-text"></div>
+                    </div>                    
+                    
+                    <div class="mb-3">
+                      <label for="exampleInputTel1" class="form-label">Telefone</label>
+                      <input type="tel" class="form-control" id="exampleInputTel1" aria-describedby="telHelp" maxlength="15">
+                      <div id="telHelp" class="form-text"></div>
+                    </div>
+                    
+                    <div class="mb-3">
+                      <label for="exampleInputLocal1" class="form-label">Local de Trabalho</label>
+                      <select class="form-select" id="exampleInputLocal1" aria-describedby="localHelp">
+                        <option selected disabled>Selecione uma opção</option>
+                        <option value="brb">BRB</option>
+                        <option value="outro">Outro</option>
+                      </select>
+                      <div id="localHelp" class="form-text"></div>
+                    </div>
+                    
+                    <div class="mb-3 d-none" id="locacaoDiv">
+                      <label for="exampleInputLocacao" class="form-label">Locação</label>
+                      <input type="text" class="form-control" id="exampleInputLocacao">
+                    </div>
+
+                    <div class="row justify-content-center">
+                    <button type="submit" class="btn btn-danger">Cadastrar </button>
+                    <div class="row justify-content-center">                  
+                  </div>
+                    </div>
+                    </div>
+                  </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
