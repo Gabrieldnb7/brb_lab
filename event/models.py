@@ -3,7 +3,7 @@ from django.utils import timezone
 from users.models import Usuario 
 
 class Eventos(models.Model):
-    id_usuario = models.ForeignKey('Usuario', on_delete=models.CASCADE)
+    id_usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     titulo = models.CharField(max_length=45)
     data = models.DateField()
     horario = models.CharField(max_length=45)
