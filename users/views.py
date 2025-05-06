@@ -1,9 +1,7 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
-from django.contrib import auth
-from .forms import UserRegistrationForm
+from django.contrib import auth, messages
+from .forms import UserRegistrationForm, UserLoginForm
 from .models import Usuario
-
 
 # Create your views here.
 def profile(request):
@@ -13,7 +11,7 @@ def register(request):
     if request.method == 'POST':
         form = UserRegistrationForm(request.POST)
         if form.is_valid():
-            Usuario.objects.create(
+            Usuario.objects.create_user(
                 nome=form.cleaned_data['nome'],
                 email=form.cleaned_data['email'],
                 cpf=form.cleaned_data['cpf'],
@@ -21,15 +19,33 @@ def register(request):
                 lotacao=form.cleaned_data.get('lotacao'),
                 matricula=form.cleaned_data.get('matricula'),
                 tipo_usuario='cliente',
-                senha=form.cleaned_data['senha']
+                password=form.cleaned_data['senha']
             )
-            return HttpResponse("Usuário registrado com sucesso!")
+            messages.success(request, "Usuário registrado com sucesso!")
+            return redirect('/login')
         else:
-            return HttpResponse(f"Erros no formulário: {form.errors}", status=400)
+            messages.error(request, f"Erros no formulário: {form.errors}")
 
     else:
-        return HttpResponse("Apenas POST é permitido.", status=405)
+        form = UserRegistrationForm()
+    return render(request, 'users/register.html', {'form': form})
 
+def login(request):
+    form = UserLoginForm(request.POST or None)
+
+    if request.method == 'POST':
+        if form.is_valid():
+            cpf = form.cleaned_data['cpf']
+            password = form.cleaned_data['password']
+
+            user = auth.authenticate(request, cpf=cpf, password=password)
+
+            if user is not None:
+                auth.login(request, user)
+                return redirect('/')
+
+    return render(request, 'users/login.html', {'form': form})
+                
 
 def logout(request):
     auth.logout(request)
