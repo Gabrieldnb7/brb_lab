@@ -22,6 +22,8 @@ class Inscricao(models.Model):
     id_inscricao = models.AutoField(primary_key=True)
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, db_column='id_usuario')
     id_evento = models.CharField(max_length=45, db_column='id_evento')  # Substitua por ForeignKey(Evento) no futuro
+    criadoEm = models.DateTimeField(auto_now_add=True)
+    status = models.IntegerField(null=True, blank=True)
 
     class Meta:
         db_table = 'inscricoes'
