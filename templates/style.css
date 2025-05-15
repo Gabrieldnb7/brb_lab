@@ -17,7 +17,7 @@ body{
     min-height: 94vh;
     box-shadow: 0 4px 8px rgba(0,0,0,0);
 }
-.cadastro {
+.login {
     margin-top: 100px;
 }
 
@@ -45,7 +45,7 @@ body{
 }
 
 .info{
-    margin-top: 20px;
+    margin-top: 0px;
     margin-bottom: 0;
     margin-right: 0px;
 }
@@ -55,15 +55,4 @@ body{
     border-radius: 0.9rem;
     padding-top: 0.1rem;   
     padding-bottom: 0.1rem;
-}
-.form-select {
-    background-color: rgb(224, 224, 224);
-    border-radius: 0.9rem;
-    padding-top: 0.1rem;
-    padding-bottom: 0.1rem;
-    border: 1px solid #ced4da;
-    font-size: 1rem;
-    color: #495057;
-    height: auto;
-    line-height: normal;
 }
