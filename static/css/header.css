@@ -1,0 +1,46 @@
+.app-header {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 1rem; 
+  }
+  
+  .header-top {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    padding: 0 2rem;
+    margin-left: 1rem;
+    margin-top: 3px;
+  }
+  
+  .hamburger {
+    background: none;
+    border: none;
+    padding: 1rem; 
+    cursor: pointer;
+    margin-left: 1rem;
+  }
+  
+  .hamburger span {
+    display: block;
+    width: 48px;       
+    height: 6px;         
+    margin: 6px 0; 
+    background-color: #0D0458;  
+    border-radius: 1rem;  
+  }
+  
+  .header-logo {
+    margin-top: 0.5rem;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    max-height: 120px;  
+    height: auto;
+  }
+  .header-logo img {
+    height: 160px;       
+    width: auto;
+  }
