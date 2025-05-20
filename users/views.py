@@ -36,7 +36,7 @@ def login(request):
     if request.method == 'POST':
         if form.is_valid():
             cpf = form.cleaned_data['cpf']
-            password = form.cleaned_data['password']
+            password = form.cleaned_data['senha']
 
             user = auth.authenticate(request, cpf=cpf, password=password)
 
