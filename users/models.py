@@ -7,17 +7,17 @@ class UsuarioManager(BaseUserManager):
             raise ValueError("O CPF é obrigatório.")
         
         email = self.normalize_email(email)
-        user = self.model(cpf=cpf, nome=nome, email=email, **extra_fields)
+        user = self.model(nome=nome, cpf=cpf, email=email, **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
 
         return user
     
-    def create_superuser(self, cpf, nome, email, password=None, **extra_fields):
+    def create_superuser(self, nome, cpf, email, password=None, **extra_fields):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
 
-        return self.create_user(cpf, nome, email, password, **extra_fields)
+        return self.create_user(nome, cpf, email, password, **extra_fields)
 
 class Usuario(AbstractBaseUser, PermissionsMixin):
     id_usuario = models.AutoField(primary_key=True)
