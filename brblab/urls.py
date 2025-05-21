@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path
 from access.views import home
 from users.views import profile, register, login
-from event.views import events, myEvents, event
+from event.views import events, myEvents, event, inscrever_usuario
 
 
 urlpatterns = [
@@ -29,5 +29,6 @@ urlpatterns = [
     path('perfil/', profile, name='profile'),
     path('eventos/', events, name='events'),
     path('meusEventos/', myEvents, name='myEvents'),
-    path('evento/', event, name='event')
+    path('evento/', event, name='event'),
+    path('inscrever/<int:id_evento>/', inscrever_usuario, name='inscrever_usuario'),
 ]
