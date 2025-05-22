@@ -13,6 +13,7 @@ def events(request):
     eventos = Eventos.objects.all()
     return render(request, 'events.html', {'eventos': eventos})
 
+
 def myEvents(request):
     return render(request, 'myEvents.html')
 
@@ -33,3 +34,8 @@ def inscrever_usuario(request, id_evento):
     )
 
     return render(request, 'inscricao_sucesso.html', {'evento': evento})
+
+@login_required  # Decorador usado para garantir que apenas usuários autenticados possam acessar a página.
+def meus_eventos_inscritos(request):
+    eventos_inscritos = Inscricao.objects.filter(usuario=request.user) #Filtra todas as inscrições onde o usuário atual é o usuário associado (mesmo que já estivesse sendo  relizado essa filtração, para que o codigo fique ainda mais optimizado).
+    return render(request, 'meus_eventos_inscritos. html', {'eventos_inscritos': eventos_inscritos}) #editar quando as telas d front estiverem prontas 
