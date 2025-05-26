@@ -10,3 +10,7 @@ def events(request):
 
 def myEvents(request):
     return render(request, 'myEvents.html')
+
+def eventos_ativos(request):
+    eventos = Evento.objects.filter(status=1) 
+    return render(request, 'eventos_ativos.html', {'eventos': eventos})
