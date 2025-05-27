@@ -2,51 +2,53 @@
 import os
 
 from django.shortcuts import render, redirect
-from django.http import JsonResponse
+from django.http import HttpResponse
 from django.views.decorators.http import require_POST
-from django.views.decorators.csrf import csrf_exempt        # remova se usar CSRF normal
+from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 
-from .models import Acesso                                   # modelo deste app
+from .models import Acesso
 
-# ======= Páginas simples que já existiam =======
+
+# ---- páginas simples que já existiam ----------------------------------
 def home(request):
     return render(request, 'home.html')
+
 
 def login(request):
     return render(request, 'login.html')
 
-# ======= NOVA VIEW PARA REGISTRAR ACESSO =======
-@csrf_exempt            # deixe apenas se o scanner não enviar CSRF-token
+
+# ---- nova view para registrar acesso ----------------------------------
+@csrf_exempt            # remova se usar CSRF normal
 @require_POST
-@login_required         # retire se não exigir que o usuário esteja logado
+@login_required         # retire se não exigir login
 def registrar_acesso(request):
     """
     Espera POST com:
         - codigo   : string lida do QRCode
         - ambiente : nome do ambiente escolhido no dropdown
     Valida 'codigo' contra VERIFY_CODE definido no .env
-    e cria um novo registro na tabela Acesso.
+    e cria um novo registro em Acesso.
     """
-    codigo   = request.POST.get('codigo')
+    codigo = request.POST.get('codigo')
     ambiente = request.POST.get('ambiente')
 
     # validações básicas
     if not codigo or not ambiente:
-        return JsonResponse(
-            {'erro': 'codigo e ambiente são obrigatórios'}, status=400)
+        return HttpResponse('codigo e ambiente são obrigatórios', status=400)
 
-    verify_code = os.getenv('VERIFY_CODE')         # definido em .env
+    verify_code = os.getenv('VERIFY_CODE')
     if codigo != verify_code:
-        return JsonResponse({'erro': 'código inválido'}, status=401)
+        return HttpResponse('código inválido', status=401)
 
     # grava no banco
     acesso = Acesso.objects.create(
-        usuario=request.user,                      # FK para usuário logado
+        usuario=request.user,      # FK do usuário logado
         Ambiente=ambiente
     )
 
-    return JsonResponse(
-        {'mensagem': 'Acesso registrado', 'idAcesso': acesso.idAcesso},
+    return HttpResponse(
+        f'Acesso registrado – idAcesso={acesso.idAcesso}',
         status=201
     )
