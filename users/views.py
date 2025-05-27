@@ -28,7 +28,7 @@ def register(request):
 
     else:
         form = UserRegistrationForm()
-    return render(request, 'users/register.html', {'form': form})
+    return render(request, 'cadastro.html', {'form': form})
 
 def login(request):
     form = UserLoginForm(request.POST or None)
@@ -44,7 +44,7 @@ def login(request):
                 auth.login(request, user)
                 return redirect('/')
 
-    return render(request, 'users/login.html', {'form': form})
+    return render(request, 'login.html', {'form': form})
                 
 
 def logout(request):

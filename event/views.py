@@ -5,10 +5,6 @@ from users.models import Usuario
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
-# Create your views here.
-def event(request):
-    return render(request, 'event.html')
-
 def events(request):
     eventos = Eventos.objects.all()
     return render(request, 'events.html', {'eventos': eventos})
@@ -16,7 +12,7 @@ def events(request):
 def myEvents(request):
     return render(request, 'myEvents.html')
 
-def inscrever_usuario(request, id_evento):
+def registerUser(request, id_evento):
     if not request.user.is_authenticated:
         return redirect('login')  # se não estiver logado, redireciona
 
