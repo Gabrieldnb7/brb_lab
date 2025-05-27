@@ -1,0 +1,75 @@
+body{
+    height: 100vh;
+    margin: 0;
+    background: linear-gradient(135deg, #c94b4b, #62135d, #000035);
+    background-size: cover;
+    display: block;
+}
+.central {
+    background-color: #f1f3f5;
+    border-radius: 15px;
+    padding: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+    flex:1;
+    margin-top: 0;
+    margin-bottom: 0;
+    min-height: 94vh;
+    box-shadow: 0 4px 8px rgba(0,0,0,0);
+}
+.salvar {
+    margin-top: 50px;
+}
+
+.btn{
+    width: 60%;
+    margin-left: 0px;
+    padding-top: 0.10rem;  
+    padding-bottom: 0.10rem;
+    display: block;
+}
+
+
+
+.btns-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 25px;
+}
+
+.info{
+    margin-top: 20px;
+    margin-bottom: 0;
+    margin-right: 0px;
+}
+
+.form-control {
+    background-color: rgb(224, 224, 224);
+    border-radius: 0.9rem;
+    padding-top: 0.1rem;   
+    padding-bottom: 0.1rem;
+}
+.form-select {
+    background-color: rgb(224, 224, 224);
+    border-radius: 0.9rem;
+    padding-top: 0.1rem;
+    padding-bottom: 0.1rem;
+    border: 1px solid #ced4da;
+    font-size: 1rem;
+    color: #495057;
+    height: auto;
+    line-height: normal;
+}
+.btn{
+    display: flex;/* centraliza os botões */
+    margin-top: 20px;
+    justify-content: center;
+    align-items: center;
+    margin-left: 40px;
+
+}
+.pincel{
+    color: black
+}
+
