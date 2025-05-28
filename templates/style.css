@@ -1,15 +1,162 @@
-
 body{
-    height: 100%;
+    height: 100vh;
     margin: 0;
-    background: linear-gradient(#D38E44, #a42453, #0D0458);
+    background: linear-gradient(135deg, #c94b4b, #62135d, #000035);
     background-size: cover;
+    display: block;
 }
+
 .central {
     background-color: #f1f3f5;
     border-radius: 15px;
-    padding: 20px;
+    margin-top: 200px;
     margin: 20px;
+    min-height: 95vh;
+    padding: 20px;
+    flex:1;
     min-height: 94vh;
     box-shadow: 0 4px 8px rgba(0,0,0,0);
+}
+
+.container{
+    padding-left: 0;
+    padding-right: 0;
+}
+h1{
+    margin-top: 150px;
+}
+
+.btn-danger{
+    margin-top: 20px;
+    padding-left: 35px;
+    padding-right: 35px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+.img-fluid{
+  width: 100%;
+  height: auto;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+}
+
+.image-container {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.image-container img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.overlay-wrapper {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.overlay-text {
+    background-color: rgba(231, 225, 225, 0.882);
+    color: black;
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: left;
+    overflow: hidden;
+}
+
+.overlay-text p {
+    margin: 0;
+    font-size: clamp(0.8rem, 2vw, 1.1rem);
+}
+
+.card-evento-modern {
+    background-color: #adc0f4;
+    border: 2px solid #a6a9ad;
+    border-radius: 1rem;
+    padding: 0.75rem;
+    margin: 3rem 1rem;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+}
+
+.card-evento-modern .card-title {
+    font-weight: bold;
+    color: black;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.card-evento-modern ul {
+    font-size: 1rem;
+    margin-bottom: 0;
+}
+
+.card-evento-modern li {
+    margin-bottom: 0.35rem;
+}
+.cadastro {
+    margin-top: 100px;
+.login {
+    margin-top: 100px;
+}
+
+.btn{
+    width: 60%;
+    margin-left: 0px;
+    padding-top: 0.10rem;  
+    padding-bottom: 0.10rem;
+    display: block;
+}
+
+.btns-containe{
+    display: flex;          
+    justify-content: center;
+    align-items: center;    
+    flex-wrap: wrap;        
+    gap: 15px;              
+    margin-top: 25px;       
+    text-align: center;
+    margin: 0; 
+    flex-shrink: 0;
+    padding: 0;
+    display: inline-block;
+    margin-right:0;
+}
+
+.info{
+    margin-top: 20px;
+    margin-bottom: 0;
+    margin-right: 0px;
+}
+
+.form-control {
+    background-color: rgb(224, 224, 224);
+    border-radius: 0.9rem;
+    padding-top: 0.1rem;   
+    padding-bottom: 0.1rem;
+}
+
+.form-select {
+    background-color: rgb(224, 224, 224);
+    border-radius: 0.9rem;
+    padding-top: 0.1rem;
+    padding-bottom: 0.1rem;
+    border: 1px solid #ced4da;
+    font-size: 1rem;
+    color: #495057;
+    height: auto;
+    line-height: normal;
 }

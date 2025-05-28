@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="alert alert-warning" role="alert">
+        <h4 class="alert-heading">Você já está inscrito!</h4>
+        <p>Você já está inscrito no evento <strong>{{ evento.titulo }}</strong>.</p>
+        <hr>
+        <a href="{% url 'events' %}" class="btn btn-primary">Voltar aos eventos</a>
+    </div>
+</div>
+{% endblock %}
