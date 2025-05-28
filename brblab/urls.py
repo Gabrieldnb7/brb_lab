@@ -14,21 +14,30 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+# brblab/urls.py
 from django.contrib import admin
 from django.urls import path
-from access.views import home
+
+# ====== imports das views ======
+from access.views import home, registrar_acesso
 from users.views import profile, register, login
 from event.views import events, myEvents, event, inscrever_usuario
 
-
 urlpatterns = [
     path('admin/', admin.site.urls),
+
+    # páginas principais
     path('', home, name='home'),
     path('login/', login, name='login'),
     path('cadastro/', register, name='register'),
     path('perfil/', profile, name='profile'),
+
+    # eventos
     path('eventos/', events, name='events'),
     path('meusEventos/', myEvents, name='myEvents'),
     path('evento/', event, name='event'),
     path('inscrever/<int:id_evento>/', inscrever_usuario, name='inscrever_usuario'),
+
+    # ====== nova rota para registrar acesso ======
+    path('acesso/', registrar_acesso, name='registrar_acesso'),
 ]
