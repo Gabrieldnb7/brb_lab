@@ -19,10 +19,10 @@ def register(request):
                 lotacao=form.cleaned_data.get('lotacao'),
                 matricula=form.cleaned_data.get('matricula'),
                 tipo_usuario='cliente',
-                password=form.cleaned_data['senha']
+                password=form.cleaned_data['password1']
             )
             messages.success(request, "Usuário registrado com sucesso!")
-            return redirect('/login')
+            return redirect('users:login')
         else:
             messages.error(request, f"Erros no formulário: {form.errors}")
 
@@ -42,6 +42,7 @@ def login(request):
 
             if user is not None:
                 auth.login(request, user)
+                messages.success(request, "Login feito com sucesso!")
                 return redirect('/')
 
     return render(request, 'login.html', {'form': form})
@@ -49,4 +50,5 @@ def login(request):
 
 def logout(request):
     auth.logout(request)
-    return redirect('home')
+    messages.success(request,"Logout feito com sucesso!")
+    return redirect('access:home')
