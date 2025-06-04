@@ -14,10 +14,11 @@ def events(request):
     return render(request, 'events.html', {'eventos': eventos})
 
 def myEvents(request):
-    return render(request, 'myEvents.html')
-
-def eventos_ativos(request):
-    eventos = Evento.objects.filter(status=1) 
+    """
+    Exibe apenas os eventos em que o usuário está inscrito.
+    (Aqui você já deve ter algo parecido; mantenha seu código original.)
+    """
+    eventos = Eventos.objects.filter(inscricao__usuario=request.user)
     return render(request, 'eventos_ativos.html', {'eventos': eventos})
 
 def inscrever_usuario(request, id_evento):
@@ -33,3 +34,26 @@ def inscrever_usuario(request, id_evento):
     )
     return render(request, 'inscricao_sucesso.html', {'evento': evento})
 
+
+@login_required
+def remover_inscricao(request, id_evento):
+    """
+    Remove a inscrição do usuário logado no evento indicado.
+    Se não houver inscrição, retorna 404.
+    """
+    # 1) Busca a inscrição desse usuário para o evento id_evento
+    inscricao = get_object_or_404(
+        Inscricao,
+        usuario=request.user,
+        id_evento=id_evento
+    )
+
+    if request.method == "POST":
+        # Confirmação recebida: excluir e redirecionar para lista de eventos
+        inscricao.delete()
+        messages.success(request, "Inscrição removida com sucesso!")
+        return redirect("events")  # Ajuste 'events' se o nome da URL de listagem for outro
+
+    # Se for GET, exibe a página de confirmação
+    evento = get_object_or_404(Eventos, pk=id_evento)
+    return render(request, "confirmar_remocao.html", {"evento": evento})

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+  <div class="container mt-4">
+    <h2>Cancelar inscrição em “{{ evento.titulo }}”?</h2>
+    <p>Tem certeza de que deseja cancelar sua inscrição neste evento?</p>
+    <form method="post">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-danger">Sim, cancelar inscrição</button>
+      <a href="{% url 'events' %}" class="btn btn-secondary">Não, voltar</a>
+    </form>
+  </div>
+{% endblock %}
