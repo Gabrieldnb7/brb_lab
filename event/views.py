@@ -32,7 +32,7 @@ def registerUser(request, id_evento):
 
 
 @login_required
-def remover_inscricao(request, id_evento):
+def unsubscribe(request, id_evento):
     """
     Remove a inscrição do usuário logado no evento indicado.
     Se não houver inscrição, retorna 404.
