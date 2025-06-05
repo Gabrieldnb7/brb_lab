@@ -2,22 +2,21 @@
 {% load static %}
 {% block content %}
 <div class="container mt-4 mb-4"> 
-  <form class="login-section">
+  <form class="login-section" action="{% url 'users:login' %}" method="POST">
       <div class="form-container-custom">
-        <div class="mb-3">
-          <label for="exampleInputEmail1" class="form-label">Login</label>
-          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-          <div id="emailHelp" class="form-text"></div>
-        </div>
-        <div class="mb-3">
-          <label for="exampleInputPassword1" class="form-label">Senha</label>
-          <input type="password" class="form-control" id="exampleInputPassword1">
-        </div>
-        <div class="mb-3 form-check">
-          <input type="checkbox" class="form-check-input" id="exampleCheck1">
-          <label class="form-check-label" for="exampleCheck1">Salvar informações.</label>
-        </div>
-        <div class="row justify-content-center">
+        {% csrf_token %}
+        <div class="row">
+            {% for field in form.visible_fields %}
+            <div class="col-12 col-lg-12" style="margin-bottom: 10px;">
+                <label for="{{ field.id_for_label }}" style="color:#D9D9D9; margin-bottom: 5px;">{{field.label}}</label>
+                {{ field }}
+            </div>
+            {% for error in field.errors %}
+            <div class="alert alert-danger">
+                {{ error }}
+            </div>
+            {% endfor %}
+          {% endfor %}
           <button type="submit" class="btn btn-danger">Login</button>
           <div class="row justify-content-center">
             <p class="info row justify-content-center">Não é cadastrado?</p>
