@@ -1,19 +1,14 @@
 body{
-    height: 100vh;
+    height: 100%;
     margin: 0;
-    background: linear-gradient(135deg, #c94b4b, #62135d, #000035);
+    background: linear-gradient(#D38E44, #a42453, #0D0458);
     background-size: cover;
-    display: block;
 }
-
 .central {
     background-color: #f1f3f5;
     border-radius: 15px;
-    margin-top: 200px;
-    margin: 20px;
-    min-height: 95vh;
     padding: 20px;
-    flex:1;
+    margin: 20px;
     min-height: 94vh;
     box-shadow: 0 4px 8px rgba(0,0,0,0);
 }
@@ -107,18 +102,25 @@ h1{
 .card-evento-modern li {
     margin-bottom: 0.35rem;
 }
+
 .cadastro {
     margin-top: 100px;
+}
+
 .login {
     margin-top: 100px;
 }
 
 .btn{
     width: 60%;
-    margin-left: 0px;
+
     padding-top: 0.10rem;  
     padding-bottom: 0.10rem;
-    display: block;
+    display: flex;/* centraliza os botões */
+    margin-top: 20px;
+    justify-content: center;
+    align-items: center;
+    margin-left: 40px;
 }
 
 .btns-containe{
@@ -156,6 +158,114 @@ h1{
     padding-bottom: 0.1rem;
     border: 1px solid #ced4da;
     font-size: 1rem;
+    color: #495057;
+    height: auto;
+    line-height: normal;
+}
+
+.salvar {
+    margin-top: 50px;
+}
+
+.pincel{
+    color: black
+}
+.container{
+    padding-left: 0;
+    padding-right: 0;
+}
+h1{
+    margin-top: 150px;
+}
+
+.btn-danger{
+    margin-top: 20px;
+    padding-left: 35px;
+    padding-right: 35px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+.img-fluid{
+  width: 100%;
+  height: auto;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+}
+
+.image-container {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.image-container img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.overlay-wrapper {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.overlay-text {
+    background-color: rgba(231, 225, 225, 0.882);
+    color: black;
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: left;
+    overflow: hidden;
+}
+
+.overlay-text p {
+    margin: 0;
+    font-size: clamp(0.8rem, 2vw, 1.1rem);
+}
+
+.card-evento-modern {
+    background-color: #adc0f4;
+    border: 2px solid #a6a9ad;
+    border-radius: 1rem;
+    padding: 0.75rem;
+    margin: 3rem 1rem;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+}
+
+.card-evento-modern .card-title {
+    font-weight: bold;
+    color: black;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.card-evento-modern ul {
+    font-size: 1rem;
+    margin-bottom: 0;
+}
+
+.card-evento-modern li {
+    margin-bottom: 0.35rem;
+}
+
+.registerContent {
+    display: flex;
+    margin-top: 100px;
+}
+
+.login {
     color: #495057;
     height: auto;
     line-height: normal;

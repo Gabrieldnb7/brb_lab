@@ -18,41 +18,11 @@ Including another URLconf
 # brblab/urls.py
 
 from django.contrib import admin
-from django.urls import path
-
-# ====== imports das views ======
-from access.views import home, registrar_acesso
-from users.views import profile, register, login
-from event.views import (
-    events,
-    myEvents,
-    event,
-    inscrever_usuario,
-    remover_inscricao,   # ← importe a nova view aqui
-)
+from django.urls import path,include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-
-    # páginas principais
-    path('', home, name='home'),
-    path('login/', login, name='login'),
-    path('cadastro/', register, name='register'),
-    path('perfil/', profile, name='profile'),
-
-    # eventos
-    path('eventos/', events, name='events'),
-    path('meusEventos/', myEvents, name='myEvents'),
-    path('evento/', event, name='event'),
-    path('inscrever/<int:id_evento>/', inscrever_usuario, name='inscrever_usuario'),
-
-    # === ROTA NOVA: remover inscrição do usuário de um evento ===
-    path(
-        'eventos/<int:id_evento>/cancelar/',
-        remover_inscricao,
-        name='remover_inscricao',
-    ),
-
-    # ====== nova rota para registrar acesso ======
-    path('acesso/', registrar_acesso, name='registrar_acesso'),
+    path('', include('access.urls', namespace='access')),
+    path('', include('event.urls', namespace='event')),
+    path('', include('users.urls', namespace='users')),
 ]
