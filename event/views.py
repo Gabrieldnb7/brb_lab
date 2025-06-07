@@ -7,22 +7,15 @@ from django.contrib.auth.decorators import login_required
 
 def events(request):
     eventos = Eventos.objects.all()
-    # return render(request, 'myEvents.html', {'eventos': eventos})
     return render(request, 'events.html', {'eventos': eventos})
 
 def myEvents(request):
-    """
-    Exibe apenas os eventos em que o usuário está inscrito.
-    (Aqui você já deve ter algo parecido; mantenha seu código original.)
-    """
-    # eventos = Eventos.objects.filter(inscricao__usuario=request.user)
-    # return render(request, 'myEvents.html', {'eventos': eventos})
-    return render(request, 'myEvents.html')
+    eventos = Eventos.objects.filter(inscricao__usuario=request.user)
+    return render(request, 'myEvents.html', {'eventos': eventos})
 
-def eventsDescricao(request):
-    eventos = Eventos.objects.all()
-    # return render(request, 'myEvents.html', {'eventos': eventos})
-    return render(request, 'events.html', {'eventos': eventos}) #aba descrição
+def eventsDescricao(request, id_evento):
+    evento = get_object_or_404(Eventos, pk=id_evento)
+    return render(request, 'events.html', {'evento': evento}) 
 
 def registerUser(request, id_evento):
     if not request.user.is_authenticated:
@@ -40,11 +33,6 @@ def registerUser(request, id_evento):
 
 @login_required
 def unsubscribe(request, id_evento):
-    """
-    Remove a inscrição do usuário logado no evento indicado.
-    Se não houver inscrição, retorna 404.
-    """
-    # 1) Busca a inscrição desse usuário para o evento id_evento
     inscricao = get_object_or_404(
         Inscricao,
         usuario=request.user,
@@ -52,12 +40,10 @@ def unsubscribe(request, id_evento):
     )
 
     if request.method == "POST":
-        # Confirmação recebida: excluir e redirecionar para lista de eventos
         inscricao.delete()
         messages.success(request, "Inscrição removida com sucesso!")
-        return redirect("events")  # Ajuste 'events' se o nome da URL de listagem for outro
+        return redirect("events.html")  
 
-    # Se for GET, exibe a página de confirmação
     evento = get_object_or_404(Eventos, pk=id_evento)
     return render(request, "confirmar_remocao.html", {"evento": evento})
 
