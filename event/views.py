@@ -13,7 +13,7 @@ def myEvents(request):
     eventos = Eventos.objects.filter(inscricao__usuario=request.user)
     return render(request, 'myEvents.html', {'eventos': eventos})
 
-def eventsDescricao(request, id_evento):
+def eventsDescription(request, id_evento):
     evento = get_object_or_404(Eventos, pk=id_evento)
     return render(request, 'events.html', {'evento': evento}) 
 
@@ -46,6 +46,3 @@ def unsubscribe(request, id_evento):
 
     evento = get_object_or_404(Eventos, pk=id_evento)
     return render(request, "confirmar_remocao.html", {"evento": evento})
-
-def eventDescription(request):
-    return render(request, 'eventDescription.html')
