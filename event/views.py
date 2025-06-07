@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 
 def events(request):
     eventos = Eventos.objects.all()
+    # return render(request, 'myEvents.html', {'eventos': eventos})
     return render(request, 'events.html', {'eventos': eventos})
 
 def myEvents(request):
@@ -14,8 +15,14 @@ def myEvents(request):
     Exibe apenas os eventos em que o usuário está inscrito.
     (Aqui você já deve ter algo parecido; mantenha seu código original.)
     """
-    eventos = Eventos.objects.filter(inscricao__usuario=request.user)
-    return render(request, 'eventos_ativos.html', {'eventos': eventos})
+    # eventos = Eventos.objects.filter(inscricao__usuario=request.user)
+    # return render(request, 'myEvents.html', {'eventos': eventos})
+    return render(request, 'myEvents.html')
+
+def eventsDescricao(request):
+    eventos = Eventos.objects.all()
+    # return render(request, 'myEvents.html', {'eventos': eventos})
+    return render(request, 'events.html', {'eventos': eventos}) #aba descrição
 
 def registerUser(request, id_evento):
     if not request.user.is_authenticated:
@@ -53,3 +60,6 @@ def unsubscribe(request, id_evento):
     # Se for GET, exibe a página de confirmação
     evento = get_object_or_404(Eventos, pk=id_evento)
     return render(request, "confirmar_remocao.html", {"evento": evento})
+
+def eventDescription(request):
+    return render(request, 'eventDescription.html')

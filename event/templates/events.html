@@ -15,7 +15,7 @@
                 Palestrantes: {{ evento.palestrantes }}<br>
                 Vagas preenchidas: {{ evento.total_inscritos }}
             </p>
-            <a href="{% url 'inscrever_usuario' id_evento=evento.id %}" class="btn btn-success">
+            <a href="{% url 'event:eventos' %}" class="btn btn-success">
                 Inscrever-se
             </a>
         </div>
@@ -23,5 +23,8 @@
     {% empty %}
     <p>Nenhum evento disponível no momento.</p>
     {% endfor %}
+    <a href="{% url 'event:meusEventos' %}" class="btn btn-success">
+                Meus eventos
+    </a>
 </div>
 {% endblock %}

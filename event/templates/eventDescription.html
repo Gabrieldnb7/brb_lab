@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="eventos-list">
+        <!-- Evento 1 -->
+        <div class="evento-card">
+            <div class="evento-info">
+                <h3 class="evento-titulo">Evento 1</h3>
+                <div class="evento-detalhes">
+                    <p class="evento-data">Data: 10/10/2025</p>
+                    <p class="evento-hora">Horário: 14:00</p>
+                    <p class="evento-local">Local: Auditório Principal</p>
+                    <p class="evento-palestrantes">Palestrantes: Ana Paula da Silva, Eng. Ricardo Torres</p>
+                    <p class="evento-descricao"> Descrição: Discussão sobre ameaças cibernéticas atuais, boas práticas de segurança digital e tendências em proteção de dados.</p>
+            </div>
+            <a href="{% url 'event:meusEventos' %}">
+                <button class="btn-saiba-mais">
+                    Voltar
+                </button>
+            </a>
+        </div>
+</div>
+{% endblock %}

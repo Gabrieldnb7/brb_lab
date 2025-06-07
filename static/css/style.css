@@ -306,3 +306,219 @@ body {
 .pincel{
     color: black
 }
+
+/* Container principal dos eventos */
+.eventos-container {
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    margin: 20px auto;
+    max-width: 600px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Título principal */
+.eventos-title {
+    font-size: 28px;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    margin-bottom: 30px;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Lista de eventos */
+.eventos-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+/* Card individual do evento */
+.evento-card {
+    background: #E8F4FD;
+    border-radius: 15px;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.evento-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Informações do evento */
+.evento-info {
+    flex: 1;
+}
+
+.evento-titulo {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.evento-detalhes p {
+    margin: 5px 0;
+    color: #555;
+    font-size: 14px;
+}
+
+.evento-data {
+    font-weight: 600;
+}
+
+.evento-hora {
+    font-weight: 600;
+}
+
+.evento-local {
+    font-style: italic;
+    text-align: left;
+}
+
+/* Botão Saiba Mais */
+.btn-saiba-mais {
+    background: #8B4B6B;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 14px;
+}
+
+.btn-saiba-mais:hover {
+    background: #7A3F5A;
+    transform: scale(1.05);
+}
+
+/* Container do botão Seus Eventos */
+.seus-eventos-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Botão Seus Eventos */
+.btn-seus-eventos {
+    background: #8B4B6B;
+    color: white;
+    border: none;
+    padding: 15px 40px;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 200px;
+}
+
+.btn-seus-eventos:hover {
+    background: #7A3F5A;
+    transform: scale(1.05);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .eventos-container {
+        margin: 10px;
+        padding: 20px;
+    }
+    
+    .evento-card {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+    }
+    
+    .evento-info {
+        width: 100%;
+    }
+    
+    .btn-saiba-mais {
+        width: 100%;
+        padding: 12px;
+    }
+    
+    .eventos-title {
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 480px) {
+    .eventos-container {
+        padding: 15px;
+    }
+    
+    .btn-seus-eventos {
+        width: 100%;
+        min-width: auto;
+    }
+}
+
+/* Estilos para as novas classes dentro do card de evento */
+
+/* Descrição do Evento */
+.evento-descricao {
+    font-size: 15px; /* Um pouco maior que os detalhes, mas menor que o título */
+    color: #444; /* Um cinza escuro para boa legibilidade */
+    margin-top: 12px; /* Espaçamento superior para separar dos detalhes */
+    line-height: 1.6; /* Altura da linha para melhor leitura de blocos de texto */
+    text-align: justify; /* Alinha o texto para preencher a largura */
+}
+
+/* Palestrantes do Evento */
+.evento-palestrantes {
+    font-size: 14px; /* Tamanho similar aos detalhes, mas com destaque */
+    color: #555; /* Um cinza um pouco mais claro */
+    font-weight: 600; /* Semibold para destacar */
+    margin-top: 8px; /* Espaçamento superior */
+    text-align: left;
+}
+
+/* Código de Check-in */
+.evento-checkin {
+    font-family: 'Courier New', Courier, monospace; /* Fonte monoespaçada para parecer um código */
+    font-size: 14px;
+    background-color: #E0F2F7; /* Um azul muito claro, sutilmente diferente do fundo do card */
+    color: #2C3E50; /* Um azul escuro para o texto do código */
+    padding: 6px 10px; /* Preenchimento interno para o "badge" */
+    border-radius: 5px; /* Cantos arredondados */
+    display: inline-block; /* Permite que o padding e background funcionem corretamente */
+    margin-top: 10px; /* Espaçamento superior */
+    font-weight: bold; /* Negrito para o código */
+    letter-spacing: 0.5px; /* Pequeno espaçamento entre letras para clareza */
+}
+
+/* Status do Evento */
+.evento-status {
+    font-size: 14px;
+    font-weight: bold; /* Negrito para o status */
+    color: #28a745; /* Um verde vibrante para "Ativo" - você pode mudar para outras cores para outros status */
+    margin-top: 8px; /* Espaçamento superior */
+}
+
+/* Ajustes gerais para o evento-info para acomodar as novas informações */
+.evento-info {
+    flex: 1;
+    /* Adicionei um max-width para que o texto não se estique demais em telas grandes,
+       mantendo o botão "Saiba mais" mais próximo em layouts flex */
+    max-width: calc(100% - 120px); /* Ajuste conforme a largura do botão e espaçamento */
+}
+
+/* Ajustes para responsividade, caso as novas classes causem quebras */
+@media (max-width: 768px) {
+    .evento-info {
+        max-width: 100%; /* Em telas menores, o info pode ocupar toda a largura */
+    }
+    .evento-descricao {
+        text-align: left; /* Em telas menores, justificar pode não ficar bom */
+    }
+}
