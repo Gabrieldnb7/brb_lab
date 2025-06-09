@@ -13,9 +13,9 @@ def myEvents(request):
     eventos = Eventos.objects.filter(inscricao__usuario=request.user)
     return render(request, 'myEvents.html', {'eventos': eventos})
 
-def eventsDescription(request, id_evento):
+def eventDescription(request, id_evento):
     evento = get_object_or_404(Eventos, pk=id_evento)
-    return render(request, 'events.html', {'evento': evento}) 
+    return render(request, 'eventDescription.html', {'evento': evento}) 
 
 def registerUser(request, id_evento):
     if not request.user.is_authenticated:

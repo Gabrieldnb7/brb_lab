@@ -38,3 +38,12 @@ class UserLoginForm(forms.Form):
                           widget=forms.TextInput(attrs={'class': 'form-control mb-2', 'placeholder': 'Seu CPF'}))
     senha = forms.CharField(label="Senha", required=True,
                             widget=forms.PasswordInput(attrs={'class': 'form-control mb-2', 'placeholder': 'Sua senha'}))
+    
+class UserProfileEditForm(forms.ModelForm):
+    class Meta:
+        model = Usuario
+        fields = ('cpf', 'nome', 'email', 'telefone', 'lotacao', 'matricula')
+
+    def __init__(self, *args, **kwargs):
+        super(UserProfileEditForm, self).__init__(*args, **kwargs)
+    
