@@ -11,6 +11,8 @@
 }
 
 body {
+  display: flex;
+  flex-direction: column;
   min-height: 100vh; 
   margin: 0;
   background: linear-gradient(135deg, #c94b4b, #62135d, #000035);
@@ -23,42 +25,40 @@ body {
 
 
 /* Layout Principal */
-.central {
-  background-color: #f1f3f5;
-  border-radius: 15px;
-  margin: 50px 20px 20px; 
-  min-height: calc(100vh - 70px); 
-  padding: 20px;  
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); 
-}
 
-.custom-container { 
-  padding-left: 0;
-  padding-right: 0;
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-}
 
 .pageTitle {
   text-align: center; 
   margin-bottom: 2rem;
 }
 
-/* Componentes de Imagem e Overlay */
+
 .image-container {
-  position: relative;
-  display: block;
-  width: 100%;
-  max-width: 100%;
+    position: relative; 
+    width: 100%; 
+    margin: 0 auto; 
 }
 
-.image-container img, 
-.img-fluid {
-  display: block;
-  width: 100%;
-  height: auto;
-  min-width: 440px;
+
+.home-image {
+    width: 100%; 
+    height: auto;
+    display: block; 
+}
+
+.text-bubble {
+    position: absolute;
+    top: calc(50% - 4px); 
+    left: 5px;
+    right: 5px; 
+    background-color: rgba(238, 240, 242, 0.8); 
+    border-radius: 10px; 
+    padding: 15px; 
+    text-align: center; 
+    font-family: 'League Spartan', sans-serif; 
+    font-size: 14px;
+    color: #000; 
+    z-index: 10; 
 }
 
 .overlay-wrapper {
@@ -91,12 +91,13 @@ body {
 
 /* Cards */
 .card-evento-modern {
-  background-color: #e0eaff;
+  background-color: #98C3ED;
   border: 1px solid #c0c8d8;
   border-radius: 1rem;
   padding: 1rem;
   margin: 2rem 1rem;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+  margin-bottom: 10px !important;
 }
 
 .card-evento-modern .card-title {
@@ -387,10 +388,35 @@ body {
 .btn-salvar { /* botão específico */
     margin-top: 50px;
 }
+.btn-checkin {
+    display: flex; /* Ativa o Flexbox */
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
+    height: calc(100vh - 750px); /* Faz o contêiner ocupar toda a altura da tela */
+    margin: 0; /* Remove margens adicionais */
+    padding: 0; /* Remove paddings adicionais */
+    position: relative; /* Garante que o contêiner seja posicionado corretamente */
+}
 
-.btn-checkin{
-  text-align: center;
-  margin-top: 20px;
+.btn-checkin button {
+    width: 144px; /* Largura do botão */
+    height: 40px; /* Altura do botão */
+    background-color: #A42453; /* Cor de fundo */
+    color: #FFFFFF; /* Cor do texto */
+    font-family: 'League Spartan', sans-serif; /* Fonte personalizada */
+    font-weight: bold; /* Negrito */
+    font-size: 20px; /* Tamanho da fonte */
+    text-align: center; /* Centraliza o texto */
+    border: none; /* Remove a borda padrão */
+    border-radius: 5px; /* Bordas arredondadas */
+    cursor: pointer; /* Cursor de ponteiro ao passar o mouse */
+    display: flex; /* Flexbox para centralizar o texto */
+    align-items: center; /* Centraliza verticalmente */
+    justify-content: center; /* Centraliza horizontalmente */
+    transition: background-color 0.3s ease; /* Transição suave para hover */
+    margin: 0; /* Remove margens adicionais */
+    position: relative; /* Remove deslocamentos */
+    left: auto; /* Remove o deslocamento para a esquerda */
 }
 
 .salvar {
@@ -549,7 +575,55 @@ body {
 }
 
 /* Responsividade */
+@media (min-width: 1024px) {
+    .image-container {
+        display: flex; /* Alinha a imagem e o text-bubble lado a lado */
+        justify-content: center; /* Centraliza horizontalmente */
+        align-items: center; /* Centraliza verticalmente */
+        height: 100vh; /* Ocupa toda a altura da tela */
+        gap: 20px; /* Espaçamento entre a imagem e o texto */
+    }
+
+    .home-image {
+        position: relative;
+        width: 710px; /* Reduz a largura total em 14px */
+        height: 450px; /* Altura fixa */
+        margin-left: 20px; /* Adiciona 14px de margem à esquerda */
+        object-fit: cover; /* Garante que a imagem preencha o espaço sem distorções */
+        
+    }
+
+.text-bubble {
+    position: absolute;
+    top: calc(50% - 4px); /* Centraliza verticalmente na imagem em telas maiores */
+    left: 5px;
+    right: 5px;
+    background-color: rgba(238, 240, 242, 0.8); /* Cor com 80% de opacidade */
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+    font-family: 'League Spartan', sans-serif;
+    font-size: 14px;
+    color: #000;
+    z-index: 10;
+}
+}
+
 @media (max-width: 768px) {
+      .image-container {
+        position: relative; /* Garante que o text-bubble seja posicionado em relação ao contêiner */
+    }
+
+        .text-bubble {
+        position: static; /* Remove o posicionamento absoluto */
+        margin-top: 10px; /* Adiciona 10px de espaço abaixo da imagem */
+        width: calc(100% - 20px); /* Garante que o text-bubble ocupe quase toda a largura, com 10px de margem em cada lado */
+        margin-left: auto; /* Centraliza horizontalmente */
+        margin-right: auto; /* Centraliza horizontalmente */
+        background-color: #98c2ed96;
+    }
+}
+
     .eventos-container {
         margin: 10px;
         padding: 20px;
@@ -573,7 +647,6 @@ body {
     .eventos-title {
         font-size: 24px;
     }
-}
 
 @media (max-width: 480px) {
     .eventos-container {

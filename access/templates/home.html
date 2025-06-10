@@ -1,23 +1,38 @@
 {% extends 'base.html' %}
 {% load static %}
+
 {% block content %}
-<h1 class="pageTitle">Bem-vindo(a)!</h1>
+<header class="app-header">
+  <div class="header-top">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+  {% include 'includes/alertas.html' %}
+
+</header>
+
+  <h1 class="pageTitle">Bem-vindo(a)!</h1>
+
 <div class="image-container">
-    <img src="{% static 'assets/ImagemBRBLab.png' %}" class="img-fluid" alt="brb_lab">    
-    <div class="overlay-wrapper">
-        <div class="overlay-text">
-            <p>
-                BRBLAB é a sede do Programa de Inovação Aberta do BRB com startups, um ambiente de desenvolvimento 
-                de negócios inovadores e fomento do ecossistema de inovação do DF e iniciativas voltadas para a 
-                criação de soluções para o sistema financeiro, governo e cidadão.
-            </p>
-        </div>
-    </div>
+  <img src="{% static 'assets/ImagemBRBLab.png' %}" alt="Imagem BRBLab" class="home-image">
+  <div class="text-bubble">
+      <p>BRBLAB é a sede do Programa de Inovação Aberta do BRB 
+        com startups, um ambiente de desenvolvimento de negócios 
+        inovadores e fomento do ecossistema de inovação do DF 
+        e iniciativas voltadas para a criação de soluções 
+        para o sistema financeiro, governo e cidadão.</p>
+     </div>
+  </div>
 </div>
+
+<!-- Botão de check-in -->
 
 <div class="btn-checkin">
     <button type="button">Check-in</button>
 </div>
+
 <!-- Card de Evento - Estilo Moderno Azul Claro -->
 <div class="card card-evento-modern">
     <div class="card-body">
@@ -39,5 +54,5 @@
             </li>
         </ul>
     </div>
-</div>
+
 {% endblock %}
