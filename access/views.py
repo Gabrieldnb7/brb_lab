@@ -6,41 +6,44 @@ from django.http import HttpResponse
 from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
+import json
 
 from .models import Acesso
 
 def home(request):
     return render(request, 'home.html')
 
-
 def login(request):
     return render(request, 'login.html')
 
-def scanner(request):
-    return render(request, 'scanner.html')
-
-
 # ---- nova view para registrar acesso ----------------------------------
 @csrf_exempt            # remova se usar CSRF normal
-@require_POST
 @login_required         
 def registrar_acesso(request):
-    codigo = request.POST.get('codigo')
-    ambiente = request.POST.get('ambiente')
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+        except json.JSONDecodeError:
+            return HttpResponse("JSON inválido", status=400)
 
-    if not codigo or not ambiente:
-        return HttpResponse('codigo e ambiente são obrigatórios', status=400)
+        codigo = data.get('codigo')
+        ambiente = data.get('ambiente')
 
-    verify_code = os.getenv('VERIFY_CODE')
-    if codigo != verify_code:
-        return HttpResponse('código inválido', status=401)
+        if not codigo or not ambiente:
+            return HttpResponse('Código e ambiente são obrigatórios', status=400)
 
-    acesso = Acesso.objects.create(
-        usuario=request.user,      
-        Ambiente=ambiente
-    )
+        verify_code = os.getenv('VERIFY_CODE')
+        if codigo != verify_code:
+            return HttpResponse('código inválido', status=401)
 
-    return HttpResponse(
-        f'Acesso registrado – idAcesso={acesso.idAcesso}',
-        status=201
-    )
+        acesso = Acesso.objects.create(
+            usuario=request.user,      
+            Ambiente=ambiente
+        )
+
+        return HttpResponse(
+            f'Acesso registrado – idAcesso={acesso.idAcesso}',
+            status=201
+        )
+    
+    return render(request, 'scanner.html')
