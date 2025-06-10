@@ -265,25 +265,31 @@
     <div id="confirm">
         <p>Confirmar CheckIn?</p>
         <div class="confirm-btns">
-            <button class="ok">Sim</button>
-            <button class="cancel">Cancelar</button>
+            <button id="scanner-ok-btn" class="ok">Sim</button>
+            <button id="scanner-cancel-btn" class="cancel">Cancelar</button>
         </div>
     </div>
     <div id="success">
         <p>CheckIn realizado com sucesso!</p>
         <img src="{% static 'assets/SuccessIcon.svg' %}" alt="">
-        <button>Sair</button>
+        <button id="scanner-leave-btn">Sair</button>
     </div>
     <div id="fail">
         <p>Erro ao validar CheckIn</p>
         <img src="{% static 'assets/FailIcon.svg' %}" alt="">
-        <button>Tentar Novamente</button>
+        <button id="scanner-try-again-btn">Tentar Novamente</button>
     </div>
 </div>
 
 <script>
+    let code, local
+
     const activeCameraBtn = document.getElementById('activeScannerBtn')
     const ambienteDropdown = document.getElementById('ambiente-dropdown') 
+    const confirmBtn = document.getElementById('scanner-ok-btn')
+    const cancelBtn = document.getElementById('scanner-cancel-btn')
+    const tryAgainBtn = document.getElementById('scanner-try-again-btn')
+    const LeaveBtn = document.getElementById('scanner-leave-btn')
 
     function show(step) {
     const etapas = ['scanner-container', 'loading', 'confirm', 'success', 'fail']
@@ -307,9 +313,12 @@
     }
     
     const onScanSuccess = (decodedText, decodedResult) => {
-        const ambiente = ambienteDropdown.value
-        console.log("QR Code lido:", decodedText)
-        console.log("Ambiente:", ambiente)
+        local = ambienteDropdown.value
+        code = decodedText
+
+        show('loading')
+        scanner.pause()
+        show('confirm')
     }
 
     const startScanner = () => {
@@ -334,7 +343,61 @@
         })
 
     }
+
+    const getCookie = (name) => {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                // Verifica se este cookie começa com o nome fornecido
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
     
     activeCameraBtn.addEventListener('click', startScanner)
+    cancelBtn.addEventListener('click', () => {
+        scanner.resume()
+        show('scanner-container')
+    })
+    confirmBtn.addEventListener('click', () => {
+        show('loading')
+
+        fetch("/checkin", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": getCookie("csrftoken")
+            },
+            body: JSON.stringify({
+                codigo: code,
+                ambiente: local
+            })
+        })
+        .then(response => {
+            if (response.status != 201) {
+                return show('fail')
+            }
+            scanner.stop()
+            return show('success')
+        })
+        .catch(error => {
+            console.error("Erro ao enviar dados", error);
+        });
+        
+    })
+    tryAgainBtn.addEventListener('click', () => {
+        scanner.resume()
+        show('scanner-container')
+    })
+    LeaveBtn.addEventListener('click', () => {
+        window.location.href = '/'
+    })
+
 </script>
 {% endblock %}
