@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container mt-4 mb-4"> 
+  <form class="registerContent" action="{% url 'users:cadastro' %}" method="POST">    
+    <div class="form-container-custom">
+      <h2 class="text-center mb-4">Cadastro</h2>
+      {% csrf_token %}
+      <div class="form-group">
+          {% for field in form.visible_fields %}
+          <div class="form-pair">
+              <label for="{{ field.id_for_label }}" class="form-label-custom">{{ field.label }}</label>
+              {{ field }}
+          </div>
+          {% for error in field.errors %}
+          <div class="alert alert-danger">
+              {{ error }}
+          </div>
+          {% endfor %}
+          {% endfor %}
+      </div>
+      <div class="d-flex justify-content-center mt-4">
+        <button type="submit" class="btn-cadastrar">Cadastrar</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<script src="{% static 'js/profile.js' %}"></script> 
+{% endblock %}

@@ -5,22 +5,19 @@ from users.models import Usuario
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
-# Create your views here.
-def event(request):
-    return render(request, 'event.html')
-
 def events(request):
     eventos = Eventos.objects.all()
     return render(request, 'events.html', {'eventos': eventos})
 
 def myEvents(request):
-    return render(request, 'myEvents.html')
+    eventos = Eventos.objects.filter(inscricao__usuario=request.user)
+    return render(request, 'myEvents.html', {'eventos': eventos})
 
-def eventos_ativos(request):
-    eventos = Evento.objects.filter(status=1) 
-    return render(request, 'eventos_ativos.html', {'eventos': eventos})
+def eventsDescription(request, id_evento):
+    evento = get_object_or_404(Eventos, pk=id_evento)
+    return render(request, 'events.html', {'evento': evento}) 
 
-def inscrever_usuario(request, id_evento):
+def registerUser(request, id_evento):
     if not request.user.is_authenticated:
         return redirect('login')
     evento = get_object_or_404(Eventos, pk=id_evento)
@@ -33,3 +30,19 @@ def inscrever_usuario(request, id_evento):
     )
     return render(request, 'inscricao_sucesso.html', {'evento': evento})
 
+
+@login_required
+def unsubscribe(request, id_evento):
+    inscricao = get_object_or_404(
+        Inscricao,
+        usuario=request.user,
+        id_evento=id_evento
+    )
+
+    if request.method == "POST":
+        inscricao.delete()
+        messages.success(request, "Inscrição removida com sucesso!")
+        return redirect("events.html")  
+
+    evento = get_object_or_404(Eventos, pk=id_evento)
+    return render(request, "confirmar_remocao.html", {"evento": evento})

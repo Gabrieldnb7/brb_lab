@@ -1,0 +1,14 @@
+body{
+    height: 100%;
+    margin: 0;
+    background: linear-gradient(135deg, #c94b4b, #62135d, #000035);
+    background-size: cover;
+}
+.central {
+    background-color: #f1f3f5;
+    border-radius: 15px;
+    margin: 20px;
+    min-height: 95vh;
+    box-shadow: 0 4px 8px rgba(0,0,0,0);
+}
+

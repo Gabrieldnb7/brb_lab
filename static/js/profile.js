@@ -1,4 +1,3 @@
-// JS que o Caio me passou
 // Exibir campo de locação se "BRB" for selecionado
 document.getElementById('exampleInputLocal1').addEventListener('change', function () {
     const locacaoDiv = document.getElementById('locacaoDiv');
