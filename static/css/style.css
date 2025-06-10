@@ -99,6 +99,32 @@ body {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
   margin-bottom: 10px !important;
 }
+.card.mb-3 {
+    border: none;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 2rem !important;
+}
+
+.card.mb-3:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.15);
+}
+
+.card.mb-3::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+    z-index: 1;
+}
 
 .card-evento-modern .card-title {
   font-weight: bold;
@@ -263,6 +289,46 @@ body {
   margin: 0 auto;
   transition: background-color 0.3s ease;
   margin-top: 6px;
+}
+
+.btn-cancelar{
+  width: 180px;
+  height: 40px;
+  background-color: #A42453;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  transition: background-color 0.3s ease;
+  margin-top: 6px;
+  text-decoration: none !important;
+}
+
+.btn-Inscrever-se{
+  width: 180px;
+  height: 40px;
+  background-color: #A42453;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  transition: background-color 0.3s ease;
+  margin-top: 6px;
+  text-decoration: none !important;
 }
 
 .registerContent .form-control,
@@ -718,4 +784,50 @@ body {
     .evento-descricao {
         text-align: left; /* Em telas menores, justificar pode não ficar bom */
     }
+}
+
+/* Para campos editáveis com ícone de lápis */
+.input-with-icon {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-with-icon input,
+.input-with-icon select,
+.input-with-icon textarea {
+    padding-right: 40px;
+    width: 100%;
+}
+
+/* Para campos readonly com ícone de cadeado */
+.input-readonly {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-readonly input {
+    padding-right: 40px;
+    background-color: #f8f9fa;
+    width: 100%;
+}
+
+/* Posicionamento dos ícones */
+.input-icon {
+    position: absolute;
+    right: 8px;
+    top: 25%;
+    pointer-events: none;
+    z-index: 2;
+}
+
+/* Cor específica para cadeado */
+.input-readonly .input-icon {
+    color: #dc3545;
+}
+
+/* Cor específica para lápis */
+.input-with-icon .input-icon {
+    color: #28a745;
 }

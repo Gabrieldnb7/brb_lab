@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container mt-5">
-    <h2 class="mb-4">Lista de Eventos Ativos</h2> 
+<!-- <div class="form-container-custom">
+    <h2 class="text-center mb-4">Lista de eventos</h2> 
 
     {% for evento in eventos %}
     <div class="card mb-3">
         <div class="card-body">
-            <h5 class="card-title">{{ evento.titulo }}</h5>
+            <h5 class="ctext-center mb-4">{{ evento.titulo }}</h5>
             <p class="card-text">
                 Data: {{ evento.data|date:"d/m/Y" }}<br> 
                 Horário: {{ evento.horario }}<br>
@@ -21,16 +21,45 @@
                     Inativo
                 {% endif %}            
             </p>
-            <a href="{% url 'event:eventos' %}" class="btn btn-success">
+            <a href="{% url 'event:eventos' %}" class="btn-Inscrever-se">
                 Inscrever-se
             </a>
         </div>
     </div>
     {% empty %}
     <p>Nenhum evento ativo disponível no momento.</p> 
+    {% endfor %} -->
+<div class="form-container-custom">
+    <h2 class="text-center mb-4">Lista de eventos</h2> 
+
+    {% for evento in eventos %}
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title">{{ evento.titulo }}</h5>
+            <div class="card-text">
+                <p><strong>Data:</strong> {{ evento.data|date:"d/m/Y" }}</p>
+                <p><strong>Horário:</strong> {{ evento.horario }}</p>
+                <p><strong>Local:</strong> {{ evento.ambiente }}</p>
+                <p><strong>Palestrantes:</strong> {{ evento.palestrantes }}</p>
+                <p><strong>Vagas preenchidas:</strong> {{ evento.total_inscritos }}</p>
+                <p><strong>Status:</strong> 
+                    <span class="{% if evento.data >= today %}text-success{% else %}text-muted{% endif %}">
+                        {% if evento.data >= today %}Ativo{% else %}Inativo{% endif %}
+                    </span>
+                </p>
+            </div>
+            <a href="{% url 'event:eventos' %}" class="btn-Inscrever-se">
+                Inscrever-se
+            </a>
+        </div>
+    </div>
+    {% empty %}
+    <div class="alert alert-info text-center">
+        <p class="mb-0">Nenhum evento ativo disponível no momento.</p>
+    </div>
     {% endfor %}
-    <a href="{% url 'event:meusEventos' %}" class="btn btn-success">
-        Meus eventos
-    </a>
+    <div class="d-flex justify-content-center mt-4 gap-3">
+                <a href="{% url 'event:meusEventos' %}" class="btn-cancelar" >Meus Eventos</a>
+            </div>
 </div>
 {% endblock %}

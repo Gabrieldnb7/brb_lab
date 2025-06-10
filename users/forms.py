@@ -40,6 +40,28 @@ class UserLoginForm(forms.Form):
                             widget=forms.PasswordInput(attrs={'class': 'form-control mb-2', 'placeholder': 'Sua senha'}))
     
 class UserProfileEditForm(forms.ModelForm):
+    lotacao = forms.CharField(
+        label="Lotação",
+        max_length=100,
+        required=False,
+        widget=forms.TextInput(attrs={'class': 'form-control'})
+    )
+    nome = forms.CharField(
+        label="Nome Completo",
+        max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-control'})
+    )
+    email = forms.EmailField(
+        label="Email Principal",
+        widget=forms.EmailInput(attrs={'class': 'form-control'})
+    )
+    telefone = forms.CharField(
+        label="Telefone Celular",
+        max_length=20, 
+        required=False,
+        widget=forms.TextInput(attrs={'class': 'form-control',
+        'placeholder': '(XX) XXXXX-XXXX'})
+    )
     class Meta:
         model = Usuario
         fields = ('nome', 'email', 'telefone', 'lotacao')
