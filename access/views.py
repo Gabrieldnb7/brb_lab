@@ -12,6 +12,15 @@ from .models import Acesso
 def home(request):
     return render(request, 'home.html')
 
+
+def login(request):
+    return render(request, 'login.html')
+
+def scanner(request):
+    return render(request, 'scanner.html')
+
+
+# ---- nova view para registrar acesso ----------------------------------
 @csrf_exempt            # remova se usar CSRF normal
 @require_POST
 @login_required         
