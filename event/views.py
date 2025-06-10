@@ -4,10 +4,12 @@ from .models import Eventos, Inscricao
 from users.models import Usuario
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.utils.timezone import now 
 
 def events(request):
-    eventos = Eventos.objects.all()
-    return render(request, 'events.html', {'eventos': eventos})
+    eventos = Eventos.objects.filter(data__gte=now())  
+    today = now().date() 
+    return render(request, 'events.html', {'eventos': eventos, 'today': today})
 
 def myEvents(request):
     eventos = Eventos.objects.filter(inscricao__usuario=request.user)
