@@ -398,7 +398,7 @@ body {
     position: relative; /* Garante que o contêiner seja posicionado corretamente */
 }
 
-.btn-checkin button {
+.btn-checkin-btn {
     width: 144px; /* Largura do botão */
     height: 40px; /* Altura do botão */
     background-color: #A42453; /* Cor de fundo */
@@ -417,6 +417,7 @@ body {
     margin: 0; /* Remove margens adicionais */
     position: relative; /* Remove deslocamentos */
     left: auto; /* Remove o deslocamento para a esquerda */
+    text-decoration: none;
 }
 
 .salvar {
