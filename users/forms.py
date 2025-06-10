@@ -42,7 +42,7 @@ class UserLoginForm(forms.Form):
 class UserProfileEditForm(forms.ModelForm):
     class Meta:
         model = Usuario
-        fields = ('cpf', 'nome', 'email', 'telefone', 'lotacao', 'matricula')
+        fields = ('nome', 'email', 'telefone', 'lotacao')
 
     def __init__(self, *args, **kwargs):
         super(UserProfileEditForm, self).__init__(*args, **kwargs)

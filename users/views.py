@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.contrib import auth, messages
+from django.urls import reverse
 from .forms import UserRegistrationForm, UserLoginForm, UserProfileEditForm
 from .models import Usuario
 
@@ -11,7 +12,7 @@ def profile(request):
         if form.is_valid():
             form.save()
             messages.success(request, "Alterações salvas com sucesso!")
-            return redirect("users:perfil")
+            return redirect(reverse("users:perfil"))
     else:
         form = UserProfileEditForm(instance=request.user)
     return render(request, 'profile.html', { 'form' : form})
