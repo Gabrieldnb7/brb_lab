@@ -1,11 +1,21 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.contrib import auth, messages
-from .forms import UserRegistrationForm, UserLoginForm
+from django.urls import reverse
+from .forms import UserRegistrationForm, UserLoginForm, UserProfileEditForm
 from .models import Usuario
 
-# Create your views here.
+@login_required
 def profile(request):
-    return render(request, 'profile.html')
+    if request.method == "POST":
+        form = UserProfileEditForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Alterações salvas com sucesso!")
+            return redirect(reverse("users:perfil"))
+    else:
+        form = UserProfileEditForm(instance=request.user)
+    return render(request, 'profile.html', { 'form' : form})
 
 def register(request):
     if request.method == 'POST':
