@@ -47,3 +47,10 @@ def registrar_acesso(request):
         )
     
     return render(request, 'scanner.html')
+
+# ---- nova view para listar acessos do usuário ------------------------
+@login_required
+def meus_acessos(request):
+    acessos = Acesso.objects.filter(usuario=request.user).order_by('-criadoEm')
+    return render(request, 'meus_acessos.html', {'acessos': acessos})
+

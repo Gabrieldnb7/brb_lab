@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Meus Acessos</h2>
+    <ul class="list-group">
+        {% for acesso in acessos %}
+            <li class="list-group-item">
+                Ambiente: {{ acesso.Ambiente }} <br>
+                Data: {{ acesso.criadoEm|date:"d/m/Y H:i" }}
+            </li>
+        {% empty %}
+            <li class="list-group-item">Nenhum acesso registrado.</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
