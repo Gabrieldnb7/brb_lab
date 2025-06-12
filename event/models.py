@@ -1,8 +1,10 @@
 from django.db import models
-from django.utils import timezone
+from django.utils.timezone import now
 from users.models import Usuario 
 
+
 class Eventos(models.Model):
+        
     id_usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     titulo = models.CharField(max_length=45)
     data = models.DateField()
@@ -11,12 +13,15 @@ class Eventos(models.Model):
     descricao = models.CharField(max_length=500)
     palestrantes = models.CharField(max_length=45)
     checkin_code = models.CharField(max_length=45, null=True, blank=True)
-    status = models.CharField(max_length=45)
     total_inscritos = models.IntegerField()
-    criado_em = models.DateTimeField(default=timezone.now)
+    criado_em = models.DateTimeField(default=now)
 
     def __str__(self):
         return self.titulo
+    
+    @property
+    def ativo(self):
+        return self.data >= now().date()
 
 class Inscricao(models.Model):
     id_inscricao = models.AutoField(primary_key=True)
