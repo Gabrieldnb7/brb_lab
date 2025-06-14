@@ -27,6 +27,17 @@ class UserRegistrationForm(UserCreationForm):
                             max_length=50, 
                             required=False)
 
+    def clean_matricula(self):
+        matricula = self.cleaned_data.get('matricula')
+        if not matricula:
+            return None
+        return matricula
+    
+    def clean_lotacao(self):
+        lotacao = self.cleaned_data.get('lotacao')
+        if not lotacao:
+            return None
+        return lotacao
 
     class Meta(): 
         model = Usuario        
