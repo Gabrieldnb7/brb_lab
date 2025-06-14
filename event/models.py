@@ -4,7 +4,7 @@ from users.models import Usuario
 
 
 class Eventos(models.Model):
-        
+    id_evento = models.BigAutoField(primary_key=True)
     id_usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     titulo = models.CharField(max_length=45)
     data = models.DateField()
@@ -26,7 +26,7 @@ class Eventos(models.Model):
 class Inscricao(models.Model):
     id_inscricao = models.AutoField(primary_key=True)
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, db_column='id_usuario')
-    id_evento = models.CharField(max_length=45, db_column='id_evento')  # Substitua por ForeignKey(Evento) no futuro
+    id_evento = models.ForeignKey(Eventos, on_delete=models.CASCADE, db_column='id_evento')
     criadoEm = models.DateTimeField(auto_now_add=True)
     status = models.IntegerField(null=True, blank=True)
 

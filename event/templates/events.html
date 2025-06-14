@@ -1,34 +1,6 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<!-- <div class="form-container-custom">
-    <h2 class="text-center mb-4">Lista de eventos</h2> 
-
-    {% for evento in eventos %}
-    <div class="card mb-3">
-        <div class="card-body">
-            <h5 class="ctext-center mb-4">{{ evento.titulo }}</h5>
-            <p class="card-text">
-                Data: {{ evento.data|date:"d/m/Y" }}<br> 
-                Horário: {{ evento.horario }}<br>
-                Local: {{ evento.ambiente }}<br>
-                Palestrantes: {{ evento.palestrantes }}<br>
-                Vagas preenchidas: {{ evento.total_inscritos }}<br>
-                <strong>Status:</strong> 
-                {% if evento.data >= today %}
-                    Ativo
-                {% else %}
-                    Inativo
-                {% endif %}            
-            </p>
-            <a href="{% url 'event:eventos' %}" class="btn-Inscrever-se">
-                Inscrever-se
-            </a>
-        </div>
-    </div>
-    {% empty %}
-    <p>Nenhum evento ativo disponível no momento.</p> 
-    {% endfor %} -->
 <div class="form-container-custom">
     <h2 class="text-center mb-4">Lista de eventos</h2> 
 
@@ -48,7 +20,7 @@
                     </span>
                 </p>
             </div>
-            <a href="{% url 'event:eventos' %}" class="btn-Inscrever-se">
+            <a href="{% url 'event:inscrever' evento.id_evento %}" class="btn-Inscrever-se">
                 Inscrever-se
             </a>
         </div>
