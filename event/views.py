@@ -21,10 +21,13 @@ def myEvents(request):
     return render(request, 'myEvents.html',context)
     
 
-def eventsDescricao(request):
-    eventos = Eventos.objects.all()
-    # return render(request, 'myEvents.html', {'eventos': eventos})
-    return render(request, 'events.html', {'eventos': eventos}) #aba descrição
+def eventDescription(request, id_evento):  # ← Recebe id_evento
+    if not request.user.is_authenticated:
+        return redirect('login')
+    
+    evento = get_object_or_404(Eventos, pk=id_evento)
+    
+    return render(request, 'eventDescription.html', {'evento': evento})
 
 def registerInEvent(request, id_evento):
     if not request.user.is_authenticated:
@@ -69,5 +72,3 @@ def unsubscribe(request, id_evento):
     
     return render(request, 'confirmar_remocao.html', {'evento': evento})
 
-def eventDescription(request):
-    return render(request, 'eventDescription.html')
