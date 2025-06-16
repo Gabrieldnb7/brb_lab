@@ -5,7 +5,7 @@
 <div class="form-container-custom">
     <h2 class="text-center mb-4">Cancelar Inscrição</h2>
     
-    <div class="card mb-3">
+    <div class="evento-card">
         <div class="card-body text-center">
             <div class="alert alert-warning mb-4">
                 <h4 class="mb-3">⚠️ Confirmação Necessária</h4>
@@ -29,9 +29,12 @@
     <form method="post" class="text-center">
         {% csrf_token %}
         <div class="d-flex justify-content-center mt-4 gap-3">
-            <button type="submit" class="btn-cancelar-inscricao">
-                Sim, Cancelar Inscrição
-            </button>
+            <a class="btn-cancelar-inscricao">
+                <button type="submit" class="btn-Inscrever-se">
+                    Sim, Cancelar Inscrição
+                </button>
+            </a>
+            
             <a href="{% url 'event:meusEventos' %}" class="btn-Inscrever-se">
                 Não, Manter Inscrição
             </a>
