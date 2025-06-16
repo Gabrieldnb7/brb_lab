@@ -6,10 +6,12 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from datetime import date
 
+
 def events(request):
     eventos = Eventos.objects.all()
     return render(request, 'events.html', {'eventos': eventos})
 
+@login_required
 def myEvents(request):
     if not request.user.is_authenticated:
         return redirect('login')
@@ -20,7 +22,7 @@ def myEvents(request):
     }
     return render(request, 'myEvents.html',context)
     
-
+@login_required
 def eventDescription(request, id_evento):  # ← Recebe id_evento
     if not request.user.is_authenticated:
         return redirect('login')
@@ -29,6 +31,7 @@ def eventDescription(request, id_evento):  # ← Recebe id_evento
     
     return render(request, 'eventDescription.html', {'evento': evento})
 
+@login_required
 def registerInEvent(request, id_evento):
     if not request.user.is_authenticated:
         return redirect('login')
