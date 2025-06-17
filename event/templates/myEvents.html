@@ -1,43 +1,61 @@
 {% extends 'base.html' %}
+
 {% block content %}
 <div class="eventos-container">
     <h1 class="eventos-title">Meus Eventos</h1>
     
     <div class="eventos-list">
-        <!-- Evento 1 -->
+        {% for inscricao in inscricoes %}
         <div class="evento-card">
             <div class="evento-info">
-                <h3 class="evento-titulo">Evento 1</h3>
+                <h3 class="evento-titulo">{{ inscricao.id_evento.titulo }}</h3>
                 <div class="evento-detalhes">
-                    <p class="evento-data">10/10</p>
-                    <p class="evento-hora">14:00</p>
-                    <p class="evento-local">Ambiente: Auditório</p>
+                    <p class="evento-data">{{ inscricao.id_evento.data|date:"d/m" }}</p>
+                    <p class="evento-hora">{{ inscricao.id_evento.horario }}</p>
+                    <p class="evento-local">Ambiente: {{ inscricao.id_evento.ambiente }}</p>
+                    <p class="evento-palestrante">Palestrante: {{ inscricao.id_evento.palestrantes }}</p>
+                    <p class="evento-status">
+                        Status: 
+                        <span class="{% if inscricao.id_evento.data >= today %}text-success{% else %}text-muted{% endif %}">
+                            {% if inscricao.id_evento.data >= today %}Ativo{% else %}Finalizado{% endif %}
+                        </span>
+                    </p>
                 </div>
             </div>
-            <a href="{% url 'event:descricao' %}">
-                <button class="btn-saiba-mais">
+            
+            <div class="evento-actions">
+                <a href="{% url 'event:descricao' inscricao.id_evento.id_evento %}" class="btn-Inscrever-se">
                     Saiba Mais  
-                </button>
-            </a>
+                </a>
+                
+                {% if inscricao.id_evento.data >= today %}
+                <a href="{% url 'event:remover_inscricao' inscricao.id_evento.id_evento %}" class="btn-Inscrever-se">
+                    Cancelar Inscrição    
+                </a>
+                {% endif %}
+            </div>
         </div>
-
-        <!-- Evento 2 -->
+        {% empty %}
         <div class="evento-card">
-            <div class="evento-info">
-                <h3 class="evento-titulo">Evento 2</h3>
-                <div class="evento-detalhes">
-                    <p class="evento-data">20/10</p>
-                    <p class="evento-hora">16:00</p>
-                    <p class="evento-local">Ambiente: Espaço Gourmet</p>
-                </div>
+            <div class="evento-info text-center">
+                <h3 class="evento-titulo">Nenhuma inscrição encontrada</h3>
+                <p class="evento-detalhes">Você ainda não se inscreveu em nenhum evento.</p>
+                <a href="{% url 'event:eventos' %}" class="btn-Inscrever-se" >
+                    <button class="btn-Inscrever-se">
+                        Ver Eventos Disponíveis
+                    </button>
+                </a>
             </div>
-            <a href="{% url 'event:descricao' %}">
-                <button class="btn-saiba-mais">
-                    Saiba Mais  
-                </button>
-            </a>
         </div>
+        {% endfor %}
     </div>
-
+    
+    <div class="d-flex justify-content-center mt-4">
+        <a href="{% url 'event:eventos' %}" class="btn-Inscrever-se" >
+            <button class="btn-Inscrever-se">
+                Voltar aos Eventos  
+            </button>
+        </a>
+    </div>
 </div>
 {% endblock %}

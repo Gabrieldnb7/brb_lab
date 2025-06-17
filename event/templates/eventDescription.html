@@ -1,22 +1,21 @@
 {% extends 'base.html' %}
+
 {% block content %}
-<div class="eventos-list">
-        <!-- Evento 1 -->
-        <div class="evento-card">
-            <div class="evento-info">
-                <h3 class="evento-titulo">Evento 1</h3>
-                <div class="evento-detalhes">
-                    <p class="evento-data">Data: 10/10/2025</p>
-                    <p class="evento-hora">Horário: 14:00</p>
-                    <p class="evento-local">Local: Auditório Principal</p>
-                    <p class="evento-palestrantes">Palestrantes: Ana Paula da Silva, Eng. Ricardo Torres</p>
-                    <p class="evento-descricao"> Descrição: Discussão sobre ameaças cibernéticas atuais, boas práticas de segurança digital e tendências em proteção de dados.</p>
+<div class="form-container-custom">
+    <h2 class="text-center mb-4">{{ evento.titulo }}</h2>
+    
+    <div class="evento-card">
+        <div class="card-body">
+                <p><strong>Descrição</strong> {{ evento.descricao|linebreaks }}</p>
+                </div>
             </div>
-            <a href="{% url 'event:descricao' %}">
-                <button class="btn-saiba-mais">
-                    Voltar
-                </button>
-            </a>
         </div>
+    </div>
+    
+    <div class="d-flex justify-content-center mt-4">
+        <a href="{% url 'event:meusEventos' %}" class="btn-Inscrever-se">
+            Voltar
+        </a>
+    </div>
 </div>
 {% endblock %}
