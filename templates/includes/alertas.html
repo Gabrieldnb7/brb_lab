@@ -5,37 +5,4 @@
             {{message}}
         </div>
     {% endfor %}
-     {% if login_sucesso %}
-  <!-- Alerta de login -->
-  <div class="toast align-items-center text-bg-success border-0 show" role="alert" aria-live="assertive" aria-atomic="true">
-    <div class="d-flex">
-      <div class="toast-body">
-        ✅ Login realizado com sucesso!
-      </div>
-      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Fechar"></button>
-    </div>
-  </div>
-  {% endif %}
-   {% if logout_sucesso %}
-  <!-- Alerta de logout -->
-  <div class="toast align-items-center text-bg-info border-0 show" role="alert" aria-live="assertive" aria-atomic="true">
-    <div class="d-flex">
-      <div class="toast-body">
-        ℹ️ Logout realizado com sucesso!
-      </div>
-      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Fechar"></button>
-    </div>
-  </div>
-  {% endif %}
-  
-  {% if login_erro %}
-    <div class="toast align-items-center text-bg-danger border-0 show" role="alert" aria-live="assertive" aria-atomic="true">
-    <div class="d-flex">
-      <div class="toast-body">
-        ❌ Usuário ou senha incorretos.
-      </div>
-      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Fechar"></button>
-    </div>
-  </div>
-  {% endif %}
 {% endif %}
