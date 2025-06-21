@@ -13,6 +13,9 @@ def profile(request):
             form.save()
             messages.success(request, "Alterações salvas com sucesso!")
             return redirect(reverse("users:perfil"))
+        else:
+            messages.error(request, "Falha ao salvar as alterações")
+            return redirect(reverse("users:perfil"))
     else:
         form = UserProfileEditForm(instance=request.user)
     return render(request, 'profile.html', { 'form' : form})
@@ -34,7 +37,7 @@ def register(request):
             messages.success(request, "Usuário registrado com sucesso!")
             return redirect('users:login')
         else:
-            messages.error(request, f"Erros no formulário: {form.errors}")
+            messages.error(request, f"Erro nos campos de cadastro, tente novamente.")
 
     else:
         form = UserRegistrationForm()
@@ -53,7 +56,10 @@ def login(request):
             if user is not None:
                 auth.login(request, user)
                 messages.success(request, "Login feito com sucesso!")
-                return redirect('/')
+                return redirect('access:home')
+            else:
+                messages.error(request, "Erro ao efetuar login, tente novamente.")
+                return redirect('users:login')
 
     return render(request, 'login.html', {'form': form})
                 

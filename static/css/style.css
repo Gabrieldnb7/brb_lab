@@ -786,7 +786,6 @@ body {
     }
 }
 
-/* Para campos editáveis com ícone de lápis */
 .input-with-icon {
     position: relative;
     display: flex;
@@ -800,7 +799,6 @@ body {
     width: 100%;
 }
 
-/* Para campos readonly com ícone de cadeado */
 .input-readonly {
     position: relative;
     display: flex;
@@ -813,7 +811,6 @@ body {
     width: 100%;
 }
 
-/* Posicionamento dos ícones */
 .input-icon {
     position: absolute;
     right: 8px;
@@ -822,12 +819,32 @@ body {
     z-index: 2;
 }
 
-/* Cor específica para cadeado */
 .input-readonly .input-icon {
     color: #dc3545;
 }
 
-/* Cor específica para lápis */
 .input-with-icon .input-icon {
     color: #28a745;
+}
+
+.alert {
+    padding: 1rem; 
+    margin-bottom: 1rem; 
+    border: 1px solid transparent; 
+    border-radius: 0.375rem;
+    max-width: 400px; 
+    font-size: 1rem;
+    position: relative; 
+}
+
+.alert-success {
+    color: #0f5132;
+    background-color: #d1e7dd; 
+    border-color: #badbcc; 
+}
+
+.alert-error {
+    color: #842029; 
+    background-color: #f8d7da; 
+    border-color: #f5c2c7; 
 }
