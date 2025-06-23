@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm 
 from .models import Usuario
 from .validators import validate_cpf
+import re
 
 class UserRegistrationForm(UserCreationForm):
     nome = forms.CharField(label="Nome Completo",
@@ -26,6 +27,12 @@ class UserRegistrationForm(UserCreationForm):
     matricula = forms.CharField(label="Matrícula (Opcional)", 
                             max_length=50, 
                             required=False)
+    
+    def clean_cpf(self):
+        cpf = self.cleaned_data.get("cpf")
+        if cpf:
+            cpf = re.sub(r'\D', '', cpf)        
+        return cpf
 
     def clean_matricula(self):
         matricula = self.cleaned_data.get('matricula')
@@ -50,6 +57,12 @@ class UserLoginForm(forms.Form):
     senha = forms.CharField(label="Senha", required=True,
                             widget=forms.PasswordInput(attrs={'class': 'form-control mb-2', 'placeholder': 'Sua senha'}))
     
+    def clean_cpf(self):
+        cpf = self.cleaned_data.get("cpf")
+        if cpf:
+            cpf = re.sub(r'\D', '', cpf)        
+        return cpf
+        
 class UserProfileEditForm(forms.ModelForm):
     lotacao = forms.CharField(
         label="Lotação",
