@@ -9,14 +9,9 @@
         <div class="form-group">
             {% for field in form.visible_fields %}
             <div class="form-pair">
-                <label for="{{ field.id_for_label }}" class="form-label-custom">{{ field.label }}</label>
-                {{ field }}
+              <label for="{{ field.id_for_label }}" class="form-label-custom">{{ field.label }}</label>
+              {{ field }}
             </div>
-            {% for error in field.errors %}
-            <div class="alert alert-danger">
-                {{ error }}
-            </div>
-            {% endfor %}
             {% endfor %}
         </div>
         <div class="d-flex justify-content-center mt-4">
