@@ -46,6 +46,8 @@ def register(request):
 def login(request):
     form = UserLoginForm(request.POST or None)
 
+    if request.method == 'GET' and 'next' in request.GET:
+        messages.error(request, "Você precisa estar logado para acessar esta página.")
     if request.method == 'POST':
         if form.is_valid():
             cpf = form.cleaned_data['cpf']

@@ -13,8 +13,6 @@ from .models import Acesso
 def home(request):
     return render(request, 'home.html')
 
-def login(request):
-    return render(request, 'login.html')
 
 @csrf_exempt           
 @login_required         
