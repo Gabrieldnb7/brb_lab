@@ -16,8 +16,7 @@ def home(request):
 def login(request):
     return render(request, 'login.html')
 
-# ---- nova view para registrar acesso ----------------------------------
-@csrf_exempt            # remova se usar CSRF normal
+@csrf_exempt           
 @login_required         
 def registrar_acesso(request):
     if request.method == 'POST':
