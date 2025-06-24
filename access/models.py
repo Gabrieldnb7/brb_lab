@@ -10,5 +10,5 @@ class Acesso(models.Model):
     class Meta:
         db_table = 'acesso'
 
-    def _str_(self):
-        return f"{self.usuario.Nome} - {self.Ambiente}"
+    def __str__(self):
+        return f"{self.usuario.nome} - {self.Ambiente}"

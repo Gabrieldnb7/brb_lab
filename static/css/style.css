@@ -525,6 +525,7 @@ body {
 
 /* Container principal dos eventos */
 .eventos-container {
+    align-self: center;
     background: white;
     border-radius: 20px;
     padding: 30px;
