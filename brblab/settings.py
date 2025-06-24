@@ -28,7 +28,11 @@ SECRET_KEY = str(os.getenv('SECRET_KEY'))
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(os.getenv('DEBUG'))
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['*' if bool(os.getenv('DEBUG')) else 'https://brblab-production.up.railway.app']
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://brblab-production.up.railway.app'
+]
 
 # Application definition
 
