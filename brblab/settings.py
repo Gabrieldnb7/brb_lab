@@ -81,7 +81,7 @@ WSGI_APPLICATION = 'brblab.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': str(os.getenv('DB_NAME')) or 'brblab',
+        'NAME': str(os.getenv('DB_NAME') or 'brblab'),
         'USER': str(os.getenv('DB_USER')),
         'PASSWORD': str(os.getenv('DB_PASSWORD')),
         'HOST': os.getenv('APP_URLS'),
