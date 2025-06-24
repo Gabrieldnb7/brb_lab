@@ -13,11 +13,14 @@
 
   <ul class="sidebar-menu">
     <li><a href="{% url 'access:home' %}">Início</a></li>
-    <li><a href="{% url 'users:cadastro' %}">Cadastro</a></li>
-    <li><a href="{% url 'users:login' %}">Login</a></li>
+    {% if not user.is_authenticated %}
+      <li><a href="{% url 'users:cadastro' %}">Cadastro</a></li>
+      <li><a href="{% url 'users:login' %}">Login</a></li>
+    {% endif %}
     <li><a href="{% url 'users:perfil' %}">Perfil</a></li>
     <li><a href="{% url 'event:eventos' %}">Eventos</a></li>
     {% if user.is_authenticated %}
+      <li><a href="{% url 'access:scanner' %}">Check-In</a></li>
       <li><a href="{% url 'users:logout' %}">Log out</a></li>
     {% endif %}
   </ul>
