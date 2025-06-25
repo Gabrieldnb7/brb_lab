@@ -324,34 +324,16 @@
     }
 
     const startScanner = () => {
-        Html5Qrcode.getCameras().then(devices => {
-            if (devices && devices.length) {
-                let cameraId
-                const rearCamera = devices.find(device => device.label.toLowerCase().includes('back') || device.label.toLowerCase().includes('rear') || device.facingMode === 'environment');
-
-                if (rearCamera) {
-                    console.log("Câmera traseira encontrada:", rearCamera.label);
-                    cameraId = rearCamera.id;
-                } else {
-                    console.log("Câmera traseira não encontrada, usando a primeira câmera disponível.");
-                    cameraId = devices[0].id;
-                }
-
-                scanner.start(
-                    cameraId,
-                    {
-                        fps: 10,
-                        qrbox: qrboxFunction
-                    },
-                    onScanSuccess
-                ).catch(err => {
-                    console.error("Erro ao iniciar scanner", err)
-                })
-            }
-        }).catch(err => {
-            console.error("Erro ao acessar câmeras", err)
+        scanner.start(
+            { facingMode: "environment" },
+            {
+                fps: 10,
+                qrbox: qrboxFunction
+            },
+            onScanSuccess
+        ).catch(err => {
+            console.error("Erro ao iniciar scanner", err)
         })
-
     }
 
     const getCookie = (name) => {
