@@ -16,11 +16,13 @@ class UserRegistrationForm(UserCreationForm):
                         max_length=14, 
                         validators=[validate_cpf],
                         widget=forms.TextInput(attrs={
-                            'placeholder': '000.000.000-00'}))
+                            'placeholder': '000.000.000-00',
+                            'id': 'exampleInputCPF1'}))
     telefone = forms.CharField(label="Telefone Celular",
                             max_length=20, required=False,
                             widget=forms.TextInput(attrs={
-                            'placeholder': '(XX) XXXXX-XXXX'}))
+                            'placeholder': '(XX) XXXXX-XXXX',
+                            'id': 'exampleInputTel1'}))
     lotacao = forms.CharField(label="Lotação (Opcional)",
                             max_length=100,
                             required=False)
@@ -45,6 +47,14 @@ class UserRegistrationForm(UserCreationForm):
         if not lotacao:
             return None
         return lotacao
+    
+    def clean_telefone(self):
+        telefone = self.cleaned_data.get("telefone")
+        if telefone:
+            telefone = re.sub(r'\D', '', telefone)
+            if len(telefone) != 11:
+                raise forms.ValidationError("O telefone deve ter 11 dígitos (incluindo DDD).")
+        return telefone
 
     class Meta(): 
         model = Usuario        
