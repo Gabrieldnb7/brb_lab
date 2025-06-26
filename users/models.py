@@ -19,6 +19,9 @@ class UsuarioManager(BaseUserManager):
 
         return self.create_user(nome, cpf, email, password, **extra_fields)
 
+class UserType(models.TextChoices):
+    CUSTOMER = ('cliente', 'Cliente')
+
 class Usuario(AbstractBaseUser, PermissionsMixin):
     id_usuario = models.AutoField(primary_key=True)
     nome = models.CharField(max_length=50)
@@ -27,7 +30,7 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
     telefone = models.CharField(max_length=11)
     lotacao = models.CharField(max_length=45, null=True, blank=True)
     matricula = models.CharField(max_length=6, unique=True, null=True, blank=True)
-    tipo_usuario = models.CharField(max_length=15, help_text='Haverá uma hierarquia de acessos')
+    tipo_usuario = models.CharField(max_length=15, choices=UserType.choices, default=UserType.CUSTOMER, help_text='Haverá uma hierarquia de acessos')
 
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
