@@ -526,12 +526,12 @@ body {
 /* Container principal dos eventos */
 .eventos-container {
     align-self: center;
-    background: white;
+    background: none;
     border-radius: 20px;
     padding: 30px;
     margin: 20px auto;
     max-width: 600px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: none;
 }
 
 /* Título principal */
@@ -562,6 +562,7 @@ body {
     align-items: center;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
+
 
 .evento-card:hover {
     transform: translateY(-2px);
@@ -700,7 +701,7 @@ body {
     .evento-card {
         flex-direction: column;
         text-align: center;
-        gap: 15px;
+        margin-bottom: 30px;
     }
     
     .evento-info {
