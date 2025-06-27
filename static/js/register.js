@@ -1,12 +1,4 @@
-// Exibir campo de locação se "BRB" for selecionado
-document.getElementById('exampleInputLocal1').addEventListener('change', function () {
-    const locacaoDiv = document.getElementById('locacaoDiv');
-    if (this.value === 'brb') {
-      locacaoDiv.classList.remove('d-none');
-    } else {
-      locacaoDiv.classList.add('d-none');
-    }
-  });
+
   
   // Máscara para telefone: (00) 000000000
   const telInput = document.getElementById('exampleInputTel1');

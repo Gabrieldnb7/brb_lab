@@ -1,36 +1,47 @@
 {% extends 'base.html' %}
-
 {% block content %}
 <div class="form-container-custom">
-    <h2 class="text-center mb-4">Lista de eventos</h2> 
-    {% for evento in eventos %}
-    <div class="evento-card">
-        <div class="card-body">
-            <h5 class="evento-titulo">{{ evento.titulo }}</h5>
-            <div class="card-text">
-                <p><strong>Data:</strong> {{ evento.data|date:"d/m/Y" }}</p>
-                <p><strong>Horário:</strong> {{ evento.horario }}</p>
-                <p><strong>Local:</strong> {{ evento.ambiente }}</p>
-                <p><strong>Palestrantes:</strong> {{ evento.palestrantes }}</p>
-                <p><strong>Vagas preenchidas:</strong> {{ evento.total_inscritos }}</p>
-                <p><strong>Status:</strong> 
-                    <span class="{% if evento.data >= today %}text-success{% else %}text-muted{% endif %}">
-                        {% if evento.data >= today %}Ativo{% else %}Inativo{% endif %}
-                    </span>
-                </p>
+    <h2 class="text-center mb-4">Lista de eventos</h2>
+
+    {% if eventos %}
+        <div class="d-flex justify-content-center mt-4 gap-3">
+        <a href="{% url 'event:meusEventos' %}" class="btn-cancelar">Meus Eventos</a>
+    </div>
+        <div class="eventos-container">
+            {# Se não estiver vazia, fazemos o loop normalmente #}
+            {% for evento in eventos %}
+            
+            <div class="evento-card">
+                <div class="card-body">
+                    <h5 class="evento-titulo">{{ evento.titulo }}</h5>
+                    <div class="card-text">
+                        <p><strong>Data:</strong> {{ evento.data|date:"d/m/Y" }}</p>
+                        <p><strong>Horário:</strong> {{ evento.horario }}</p>
+                        <p><strong>Local:</strong> {{ evento.ambiente }}</p>
+                        <p><strong>Palestrantes:</strong> {{ evento.palestrantes }}</p>
+                        <p><strong>Vagas preenchidas:</strong> {{ evento.total_inscritos }}</p>
+                        <p><strong>Status:</strong>
+                            <span class="{% if evento.data >= today %}text-success{% else %}text-muted{% endif %}">
+                                {% if evento.data >= today %}Ativo{% else %}Inativo{% endif %}
+                            </span>
+                        </p>
+                    </div>
+                   <a href="{% url 'event:inscrever' evento.id_evento %}" class="btn-Inscrever-se" style="position: relative; z-index: 2;">
+                        Inscrever-se
+                    </a>
+
+                    <a href="{% url 'event:descricao' evento.id_evento %}" class="stretched-link"></a>
+
+                </div>
             </div>
-            <a href="{% url 'event:inscrever' evento.id_evento %}" class="btn-Inscrever-se">
-                Inscrever-se
-            </a>
+            {% endfor %}
         </div>
-    </div>
-    {% empty %}
-    <div class="alert alert-info text-center">
-        <p class="mb-0">Nenhum evento ativo disponível no momento.</p>
-    </div>
-    {% endfor %}
-    <div class="d-flex justify-content-center mt-4 gap-3">
-                <a href="{% url 'event:meusEventos' %}" class="btn-cancelar" >Meus Eventos</a>
-            </div>
+    {% else %}
+        <div class="alert alert-info text-center">
+            <p class="mb-0">Nenhum evento ativo disponível no momento.</p>
+        </div>
+    {% endif %}
+
+
 </div>
 {% endblock %}
