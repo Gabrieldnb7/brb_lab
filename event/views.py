@@ -9,6 +9,18 @@ from datetime import date
 
 def events(request):
     eventos = Eventos.objects.all()
+
+    if request.user.is_authenticated:
+        print('ta on')
+        inscricoes = Inscricao.objects.filter(usuario=request.user)
+
+        for event in eventos:
+            event.inscrito = event in map(lambda x: x.id_evento, inscricoes)
+
+    else:
+        for event in eventos:
+            event.inscrito = False
+
     return render(request, 'events.html', {'eventos': eventos})
 
 @login_required

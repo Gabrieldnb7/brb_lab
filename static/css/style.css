@@ -643,6 +643,21 @@ body {
     transform: scale(1.05);
 }
 
+.remover-btn-box {
+    display: flex;
+    gap: 16px;
+}
+
+.remover-eventos-btn {
+    width: 210px;
+    height: 50px;
+}
+
+.inscrito {
+    background-color: #d1739e;
+    cursor: default;
+}
+
 /* Responsividade */
 @media (min-width: 1024px) {
     .image-container {

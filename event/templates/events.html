@@ -21,17 +21,20 @@
                         <p><strong>Palestrantes:</strong> {{ evento.palestrantes }}</p>
                         <p><strong>Vagas preenchidas:</strong> {{ evento.total_inscritos }}</p>
                         <p><strong>Status:</strong>
-                            <span class="{% if evento.data >= today %}text-success{% else %}text-muted{% endif %}">
-                                {% if evento.data >= today %}Ativo{% else %}Inativo{% endif %}
+                            <span class="{% if evento.ativo %}text-success{% else %}text-muted{% endif %}">
+                                {% if evento.ativo %}Ativo{% else %}Inativo{% endif %}
                             </span>
                         </p>
                     </div>
-                   <a href="{% url 'event:inscrever' evento.id_evento %}" class="btn-Inscrever-se" style="position: relative; z-index: 2;">
-                        Inscrever-se
-                    </a>
-
-                    <a href="{% url 'event:descricao' evento.id_evento %}" class="stretched-link"></a>
-
+                    {% if evento.inscrito %}
+                        <span class="btn-Inscrever-se inscrito" style="position: relative; z-index: 2;">
+                            Inscrito
+                        </span>
+                    {% else %}
+                        <a href="{% url 'event:inscrever' evento.id_evento %}" class="btn-Inscrever-se" style="position: relative; z-index: 2;">
+                            Inscrever-se
+                        </a>
+                    {% endif %}
                 </div>
             </div>
             {% endfor %}
