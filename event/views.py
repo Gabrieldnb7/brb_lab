@@ -1,14 +1,29 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
-from .models import Eventos, Inscricao
+from .models import Eventos, Inscricao, TipoInscricao
 from users.models import Usuario
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from datetime import date
+import json
+from django.core.exceptions import ValidationError
 
 
 def events(request):
     eventos = Eventos.objects.all()
+
+    if request.user.is_authenticated:
+        print('ta on')
+        inscricoes = Inscricao.objects.filter(usuario=request.user)
+
+        for event in eventos:
+            event.inscrito = event in map(lambda x: x.id_evento, inscricoes)
+
+    else:
+        for event in eventos:
+            event.inscrito = False
+
     return render(request, 'events.html', {'eventos': eventos})
 
 @login_required
@@ -75,3 +90,44 @@ def unsubscribe(request, id_evento):
     
     return render(request, 'confirmar_remocao.html', {'evento': evento})
 
+@csrf_exempt           
+@login_required         
+def validar_inscricao(request, id_evento):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+        except json.JSONDecodeError:
+            return HttpResponse(json.dumps({"erro": "JSON inválido"}), status=400)
+
+        codigo = data.get('codigo')
+
+        if not codigo:
+            return HttpResponse(json.dumps({"erro": 'O código da inscrição é obrigatório'}), status=400)
+
+        try:
+            print(id_evento, codigo)
+            evento = Eventos.objects.get(pk=id_evento, checkin_code=codigo)
+        except(Eventos.DoesNotExist, ValidationError):
+            return HttpResponse(json.dumps({"erro": 'Código inválido'}), status=400)
+        
+        try:
+            inscricao = Inscricao.objects.get(usuario=request.user, id_evento=evento.id_evento)
+        except(Inscricao.DoesNotExist):
+            return HttpResponse(json.dumps({"erro": 'Você não está inscrito neste evento'}), status=404)
+
+        if inscricao.status != TipoInscricao.ACTIVE:
+            return HttpResponse(json.dumps({"erro": f'Sua inscrição neste evento foi {inscricao.status}'}), status=404)
+        
+        inscricao.status = TipoInscricao.VALIDATED
+        inscricao.save()
+
+        return HttpResponse(
+            f'Inscricão validada com sucesso – idAcesso={inscricao.id_inscricao}',
+            status=202
+        )
+    
+    try:
+        evento = Eventos.objects.get(id_evento=id_evento)
+    except Eventos.DoesNotExist:
+        return redirect('event:meusEventos')
+    return render(request, 'sub-scanner.html', {'evento': evento})
