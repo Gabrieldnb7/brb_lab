@@ -21,6 +21,9 @@
     <li><a href="{% url 'event:eventos' %}">Eventos</a></li>
     {% if user.is_authenticated %}
       <li><a href="{% url 'access:scanner' %}">Check-In</a></li>
+      {% if user.is_superuser %}
+        <li><a href="/admin">Painel ADM</a></li>
+      {% endif %}
       <li><a href="{% url 'users:logout' %}">Log out</a></li>
     {% endif %}
   </ul>
