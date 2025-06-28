@@ -27,7 +27,7 @@
     }
 
     .ambiente-dropdown {
-        max-width: 360px;
+        max-width: 700px;
         width: 90%;
         height: 40px;
 
@@ -102,8 +102,13 @@
         justify-content: space-between;
         flex-flow: column;
 
-        width: 100%;
-        height: 40dvh;
+        max-width: 330px;
+        height: 60dvh;
+
+        background-color: white;
+        border-radius: 10px;
+        padding: 15px 10px;
+        padding-top: 0px;
     }
 
     #loading span {
@@ -130,13 +135,19 @@
         justify-content: space-between;
         flex-flow: column;
 
-        height: 60dvh;
+        min-height: 60dvh;
+        min-width: 330px;
+        border-radius: 20px;
+        background-color: white;
+        padding: 15px 10px;
+        padding-top: 0px;
     }
 
     #confirm p {
+        margin: 0;
+        margin-top: 16px;
         font-size: 2rem;
         font-weight: bold;
-        margin-bottom: 0.5em;
     }
 
     .confirm-btns {
@@ -159,14 +170,42 @@
         font-size: 1rem;
     }
 
+    .confirm-info {
+        display: flex;
+        flex-flow: column;
+        justify-content: center;
+
+
+        background-color: #E8F4FD;
+        border-radius: 10px;
+        height: 200px;
+        line-height: normal;
+        width: 100%;
+        padding: 10px;
+    }
+
+    .confirm-info p  {
+        margin: 0 !important;
+        font-size: 1.75rem !important;
+    }
+
+    .confirm-info .value {
+        font-weight: 400 !important;
+        margin-left: 20px !important;
+    }
+
     #success {
         display: none;
         align-items: center;
         justify-content: space-between;
         flex-flow: column;
 
-        width: 100%;
         height: 60dvh;
+        max-width: 330px;
+        border-radius: 20px;
+        background-color: white;
+        padding: 25px 15px;
+        padding-top: 5px;
     }
 
     #success p {
@@ -184,7 +223,7 @@
 
     #success button {
         max-width: 360px;
-        width: 80%;
+        width: 100%;
         height: 30px;
 
         color: white;
@@ -203,6 +242,11 @@
         flex-flow: column;
 
         height: 60dvh;
+        max-width: 330px;
+        border-radius: 20px;
+        background-color: white;
+        padding: 25px 15px;
+        padding-top: 5px;
     }
 
     #fail img {
@@ -219,7 +263,7 @@
 
     #fail button {
         max-width: 360px;
-        width: 80%;
+        width: 100%;
         height: 30px;
 
         color: white;
@@ -263,12 +307,21 @@
     <div id="loading">
         <p>Validando CheckIn</p>
         <span class="loader"></span>
+        <div style="height: 100px;"></div>
     </div>
     <div id="confirm">
         <p>Confirmar CheckIn?</p>
+
+        <div class="confirm-info">
+            <p><strong>Ambinete:</strong></p>
+            <p class="value" id="local-value">Local Legal</p>
+            <p><strong>Horário:</strong></p>
+            <p class="value" id="time-value">00:00:00</p>
+        </div>
+
         <div class="confirm-btns">
-            <button id="scanner-ok-btn" class="ok">Sim</button>
             <button id="scanner-cancel-btn" class="cancel">Cancelar</button>
+            <button id="scanner-ok-btn" class="ok">Confirmar</button>
         </div>
     </div>
     <div id="success">
@@ -293,6 +346,9 @@
     const tryAgainBtn = document.getElementById('scanner-try-again-btn')
     const LeaveBtn = document.getElementById('scanner-leave-btn')
 
+    const localConfirmValue = document.getElementById('local-value')
+    const timeConfirmValue = document.getElementById('time-value')
+
     function show(step) {
     const etapas = ['scanner-container', 'loading', 'confirm', 'success', 'fail']
     etapas.forEach(e => {
@@ -315,11 +371,22 @@
     }
     
     const onScanSuccess = (decodedText, decodedResult) => {
+        scanner.stop()
         local = ambienteDropdown.value
         code = decodedText
 
-        show('loading')
-        scanner.pause()
+        const nowDate = (new Date()).toLocaleString('pt-BR', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: false
+        }).replace(',', ' -')
+
+        localConfirmValue.innerText = local
+        timeConfirmValue.innerHTML = nowDate
+
         show('confirm')
     }
 
@@ -342,7 +409,6 @@
             const cookies = document.cookie.split(';');
             for (let i = 0; i < cookies.length; i++) {
                 const cookie = cookies[i].trim();
-                // Verifica se este cookie começa com o nome fornecido
                 if (cookie.substring(0, name.length + 1) === (name + '=')) {
                     cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
                     break;
@@ -354,7 +420,7 @@
     
     activeCameraBtn.addEventListener('click', startScanner)
     cancelBtn.addEventListener('click', () => {
-        scanner.resume()
+        startScanner()
         show('scanner-container')
     })
     confirmBtn.addEventListener('click', () => {
@@ -375,7 +441,6 @@
             if (response.status != 201) {
                 return show('fail')
             }
-            scanner.stop()
             return show('success')
         })
         .catch(error => {
@@ -384,12 +449,11 @@
         
     })
     tryAgainBtn.addEventListener('click', () => {
-        scanner.resume()
+        startScanner()
         show('scanner-container')
     })
     LeaveBtn.addEventListener('click', () => {
         window.location.href = '/'
     })
-
 </script>
 {% endblock %}
