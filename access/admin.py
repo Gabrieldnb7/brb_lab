@@ -4,6 +4,7 @@ from .models import Acesso
 @admin.register(Acesso)
 class AcessoAdmin(admin.ModelAdmin):
     readonly_fields = ['usuario', 'Ambiente', 'criadoEm']
+    list_display = ('usuario', 'Ambiente', 'criadoEm')
     ordering = ('criadoEm',)
 
     def has_add_permission(self, request):
