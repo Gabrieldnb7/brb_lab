@@ -178,7 +178,7 @@
 
         background-color: #E8F4FD;
         border-radius: 10px;
-        height: 200px;
+        min-height: 200px;
         line-height: normal;
         width: 100%;
         padding: 10px;
@@ -287,15 +287,7 @@
 <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
 <div class="checkin-container">
     <div id="scanner-container">
-        <label class="ambiente-label" for="ambiente">Escolha o ambiente</label>
-        <select class="ambiente-dropdown" name="ambiente" id="ambiente-dropdown">
-            <option value="Espaço Gourmet">Espaço Gourmet</option>
-            <option value="Mezanino">Mezanino</option>
-            <option value="Auditório">Auditório</option>
-            <option value="2° Andar">2° Andar</option>
-            <option value="3° Andar">3° Andar</option>
-        </select>
-    
+        <h1 class="ambiente-label">Valide sua presença</h1>
         <div class="reader-container">
             <div id="reader">
                 <img src="{% static 'assets/scannerIcon.svg' %}" alt="">
@@ -313,8 +305,8 @@
         <p>Confirmar CheckIn?</p>
 
         <div class="confirm-info">
-            <p><strong>Ambinete:</strong></p>
-            <p class="value" id="local-value">Local Legal</p>
+            <p><strong>Evento:</strong></p>
+            <p class="value">{{ evento.titulo }}</p>
             <p><strong>Horário:</strong></p>
             <p class="value" id="time-value">00:00:00</p>
         </div>
@@ -330,7 +322,7 @@
         <button id="scanner-leave-btn">Sair</button>
     </div>
     <div id="fail">
-        <p>Erro ao validar CheckIn</p>
+        <p id="error-value">Erro ao validar CheckIn</p>
         <img src="{% static 'assets/FailIcon.svg' %}" alt="">
         <button id="scanner-try-again-btn">Tentar Novamente</button>
     </div>
@@ -340,14 +332,13 @@
     let code, local
 
     const activeCameraBtn = document.getElementById('activeScannerBtn')
-    const ambienteDropdown = document.getElementById('ambiente-dropdown') 
     const confirmBtn = document.getElementById('scanner-ok-btn')
     const cancelBtn = document.getElementById('scanner-cancel-btn')
     const tryAgainBtn = document.getElementById('scanner-try-again-btn')
     const LeaveBtn = document.getElementById('scanner-leave-btn')
 
-    const localConfirmValue = document.getElementById('local-value')
     const timeConfirmValue = document.getElementById('time-value')
+    const errorValue = document.getElementById('error-value')
 
     function show(step) {
     const etapas = ['scanner-container', 'loading', 'confirm', 'success', 'fail']
@@ -372,7 +363,6 @@
     
     const onScanSuccess = (decodedText, decodedResult) => {
         scanner.stop()
-        local = ambienteDropdown.value
         code = decodedText
 
         const nowDate = (new Date()).toLocaleString('pt-BR', {
@@ -384,9 +374,7 @@
             hour12: false
         }).replace(',', ' -')
 
-        localConfirmValue.innerText = local
         timeConfirmValue.innerHTML = nowDate
-
         show('confirm')
     }
 
@@ -426,7 +414,8 @@
     confirmBtn.addEventListener('click', () => {
         show('loading')
 
-        fetch("/checkin", {
+        const eventId = {{ evento.id_evento }}
+        fetch(`/eventos/${eventId}/checkin`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -434,17 +423,23 @@
             },
             body: JSON.stringify({
                 codigo: code,
-                ambiente: local
             })
         })
         .then(response => {
-            if (response.status != 201) {
-                return show('fail')
+            if (response.status == 202) {
+                return show('success')
             }
-            return show('success')
+            
+            response.json().then(data => {
+                errorValue.innerText = data.erro
+                show('fail')
+            })
         })
         .catch(error => {
             console.error("Erro ao enviar dados", error);
+
+            let errorMsg = error.response?.data?.error
+            errorValue.innerText = errorMsg
         });
         
     })

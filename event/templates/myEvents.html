@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
 <div class="eventos-container">
     <h1 class="eventos-title">Meus Eventos</h1>
@@ -16,22 +16,29 @@
                     <p class="evento-palestrante">Palestrante: {{ inscricao.id_evento.palestrantes }}</p>
                     <p class="evento-status">
                         Status: 
-                        <span class="{% if inscricao.id_evento.data >= today %}text-success{% else %}text-muted{% endif %}">
-                            {% if inscricao.id_evento.data >= today %}Ativo{% else %}Finalizado{% endif %}
+                        <span class="{% if inscricao.id_evento.ativo %}text-success{% else %}text-muted{% endif %}">
+                            {% if inscricao.id_evento.ativo %}Ativo{% else %}Finalizado{% endif %}
                         </span>
                     </p>
                 </div>
             </div>
             
             <div class="evento-actions">
-                <a href="{% url 'event:descricao' inscricao.id_evento.id_evento %}" class="btn-Inscrever-se">
-                    Saiba Mais  
-                </a>
-                
-                {% if inscricao.id_evento.data >= today %}
-                <a href="{% url 'event:remover_inscricao' inscricao.id_evento.id_evento %}" class="btn-Inscrever-se">
-                    Cancelar Inscrição    
-                </a>
+                <div>
+                    <a href="{% url 'event:descricao' inscricao.id_evento.id_evento %}" class="btn-Inscrever-se">
+                        Saiba Mais  
+                    </a>
+                    
+                    {% if inscricao.status == 'ativa' %}
+                    <a href="{% url 'event:remover_inscricao' inscricao.id_evento.id_evento %}" class="btn-Inscrever-se">
+                        Cancelar Inscrição    
+                    </a>
+                    {% endif %}
+                </div>
+                {% if inscricao.status == 'ativa' %}
+                    <a class="sub-checkin-btn" href="{% url 'event:validar-inscricao' inscricao.id_evento.id_evento %}">
+                        <img src="{% static 'assets/SubScannerIcon.svg' %}" alt="Ícone do scanner">
+                    </a>
                 {% endif %}
             </div>
         </div>

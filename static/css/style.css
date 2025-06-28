@@ -525,12 +525,18 @@ body {
 
 /* Container principal dos eventos */
 .eventos-container {
-    align-self: center;
+    display: flex;
+    flex-flow: column;
+
+    justify-content: center;
+    align-items: center;
+
     background: none;
     border-radius: 20px;
     padding: 30px;
     margin: 20px auto;
-    max-width: 600px;
+    width: 100%;
+
     box-shadow: none;
 }
 
@@ -641,6 +647,44 @@ body {
 .btn-seus-eventos:hover {
     background: #7A3F5A;
     transform: scale(1.05);
+}
+
+.remover-btn-box {
+    display: flex;
+    gap: 16px;
+}
+
+.remover-eventos-btn {
+    width: 210px;
+    height: 50px;
+}
+
+.inscrito {
+    background-color: #d1739e;
+    cursor: default;
+}
+
+.evento-actions {
+    display: flex;
+    gap: 4px;
+}
+
+.sub-checkin-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin-top: 6px;
+    width: 86px;
+    height: 86px;
+
+    background-color: #D38E44;
+    border-radius: 5px;
+}
+
+.sub-checkin-btn img {
+    width: 80px;
+    height: 80px;
 }
 
 /* Responsividade */
@@ -857,4 +901,10 @@ body {
     color: #055160;             
     background-color: #cff4fc;  
     border-color: #b6effb;     
+}
+
+@media (min-width: 768px) {
+    .eventos-list {
+        width: 600px;
+    }
 }

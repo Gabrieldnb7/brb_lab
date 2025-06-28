@@ -23,22 +23,23 @@
             <div class="alert alert-info mt-3">
                 <p class="mb-0"><strong>Atenção:</strong> Esta ação não pode ser desfeita. Você precisará se inscrever novamente se mudar de ideia.</p>
             </div>
+            
+            <form method="post" class="text-center">
+                {% csrf_token %}
+                <div class="remover-btn-box">
+                    <a class="btn-cancelar-inscricao">
+                        <button type="submit" class="btn-Inscrever-se remover-eventos-btn">
+                            Sim, Cancelar Inscrição
+                        </button>
+                    </a>
+                    
+                    <a href="{% url 'event:meusEventos' %}" class="btn-Inscrever-se remover-eventos-btn">
+                        Não, Manter Inscrição
+                    </a>
+                </div>
+            </form>
         </div>
     </div>
     
-    <form method="post" class="text-center">
-        {% csrf_token %}
-        <div class="d-flex justify-content-center mt-4 gap-3">
-            <a class="btn-cancelar-inscricao">
-                <button type="submit" class="btn-Inscrever-se">
-                    Sim, Cancelar Inscrição
-                </button>
-            </a>
-            
-            <a href="{% url 'event:meusEventos' %}" class="btn-Inscrever-se">
-                Não, Manter Inscrição
-            </a>
-        </div>
-    </form>
 </div>
 {% endblock %}
