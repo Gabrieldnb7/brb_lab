@@ -851,7 +851,7 @@ body {
     border-color: #f5c2c7; 
 }
 
-.alert.alert-info {
+.alert-info {
     display: flex;
     justify-content: center;
     color: #055160;             
