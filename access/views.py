@@ -1,4 +1,3 @@
-# access/views.py
 import os
 
 from django.shortcuts import render, redirect
@@ -6,13 +5,20 @@ from django.http import HttpResponse
 from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
+from event.models import Eventos
+from django.utils import timezone
 import json
 
 from .models import Acesso
 
 def home(request):
-    return render(request, 'home.html')
+    data_de_hoje = timezone.now().date()
+    evento_destaque = None
+    evento_destaque = Eventos.objects.filter(
+        data__gte=data_de_hoje
+    ).order_by('data').first()
 
+    return render(request, 'home.html', {"evento_destaque" : evento_destaque})
 
 @csrf_exempt           
 @login_required         

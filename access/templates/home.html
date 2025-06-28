@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 {% load static %}
-
 {% block content %}
 <header class="app-header">
   <div class="header-top">
@@ -22,29 +21,43 @@
      </div>
   </div>
 </div>
-<!-- Botão de check-in -->
 <div class="btn-checkin">
     <a class="btn-checkin-btn" href="/checkin">Check-in</a>
 </div>
-<!-- Card de Evento - Estilo Moderno Azul Claro -->
-<div class="card card-evento-modern">
-    <div class="card-body">
-        <h5 class="card-title">
-        {{ evento.nome }}
-        </h5>
-        <ul class="list-unstyled">
-            <li>
-                <i class="bi bi-calendar-event-fill me-2 text-primary"></i>
-                <strong>Data: 00/00/0000</strong> {{ evento.data }}
-            </li>
-            <li>
-                <i class="bi bi-clock-fill me-2 text-primary"></i>
-                <strong>Hora: 00:00hrs</strong> {{ evento.hora }}
-            </li>
-            <li>
-                <i class="bi bi-geo-alt-fill me-2 text-primary"></i>
-                <strong>Ambiente: Teste</strong> {{ evento.ambiente }}
-            </li>
-        </ul>
-    </div>
+ {% if evento_destaque %}
+      <div class="card card-evento-modern my-4">
+          <div class="card-body">
+              <h5 class="card-title">{{ evento_destaque.nome }}</h5>
+              <ul class="card-text">
+                  <li>
+                      <i class="bi bi-calendar-event-fill me-2 text-primary"></i>
+                      <strong>Data:</strong> {{ evento_destaque.data }}
+                  </li>
+                  <li>
+                      <i class="bi bi-info-circle-fill me-2 text-primary"></i>
+                      <strong>Descrição:</strong> {{ evento_destaque.descricao|truncatewords:5 }}
+                  </li>
+                  <li>
+                      <i class="bi bi-info-circle-fill me-2 text-primary"></i>
+                      <strong>Ambiente: </strong> {{ evento_destaque.ambiente }}
+                  </li>
+                  <li>
+                      <i class="bi bi-info-circle-fill me-2 text-primary"></i>
+                      <strong>Palestrantes: </strong> {{ evento_destaque.palestrantes}}
+                  </li>
+                  </ul>
+              <div class="evento-actions">
+                  <a href="{% url 'event:descricao' id_evento=evento_destaque.id_evento %}" class="btn-Inscrever-se">
+                      Saiba Mais
+                  </a>
+              </div>
+          </div>
+      </div>
+    {% else %}
+      <div class="evento-card">
+        <div class="alert alert-info">
+            Nenhum evento programado no momento. Fique de olho para futuras novidades!
+        </div>
+      </div>
+  {% endif %}
 {% endblock %}

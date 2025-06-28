@@ -850,3 +850,11 @@ body {
     background-color: #f8d7da; 
     border-color: #f5c2c7; 
 }
+
+.alert.alert-info {
+    display: flex;
+    justify-content: center;
+    color: #055160;             
+    background-color: #cff4fc;  
+    border-color: #b6effb;     
+}
