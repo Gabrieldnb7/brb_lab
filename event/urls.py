@@ -1,6 +1,6 @@
 
 from django.urls import path
-from event.views import events, myEvents, registerInEvent, unsubscribe, eventDescription
+from event.views import events, myEvents, registerInEvent, unsubscribe, eventDescription, validar_inscricao
 
 app_name = 'event'
 
@@ -10,4 +10,5 @@ urlpatterns = [
     path('eventos/descricao/<int:id_evento>/', eventDescription, name='descricao'),
     path('inscrever/<int:id_evento>/', registerInEvent, name='inscrever'),
     path("eventos/<int:id_evento>/cancelar/", unsubscribe, name="remover_inscricao"),
+    path('eventos/<int:id_evento>/checkin', validar_inscricao, name='validar-inscricao')
 ]

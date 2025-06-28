@@ -1,0 +1,454 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<style>
+    .checkin-container {
+        display: flex;
+        align-items: center;
+        justify-content: start;
+        flex-flow: column;
+
+        width: 100%;
+    }
+
+    #scanner-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-flow: column;
+
+        width: 100%;
+    }
+
+    .ambiente-label {
+        font-size: 2rem;
+        font-weight: bold;
+        margin-bottom: 0.5em;
+    }
+
+    .ambiente-dropdown {
+        max-width: 700px;
+        width: 90%;
+        height: 40px;
+
+        color: white;
+        background-color: #A42453;
+        outline: none;
+        border: none;
+        border-radius: 10px;
+        padding-left: 20px;
+        font-weight: bold;
+        font-size: 1rem;
+    }
+
+    .reader-container {
+        position: relative;
+        
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+
+        width: 90%;
+        max-width: 700px;
+        height: auto;
+
+        overflow: hidden;
+        border-radius: 20px;
+        border: #A42453 solid 5px;
+    }
+
+    #reader {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+
+        width: 100%;
+        min-height: 150px;
+        height: auto;
+    }
+
+    #reader img {
+        width: 50%;
+    }
+
+    #reader button {
+        max-width: 360px;
+        width: 80%;
+        height: 30px;
+
+        color: white;
+        background-color: #A42453;
+        outline: none;
+        border: none;
+        border-radius: 10px;
+        padding-left: 20px;
+        font-weight: bold;
+        font-size: 1rem;
+    }
+
+    #reader p {
+        text-align: center;
+
+        margin: 10px 0;
+        width: 90%;
+
+        font-size: 0.75rem;
+        font-weight: bold;
+    }
+
+    #loading {
+        display: none;
+        align-items: center;
+        justify-content: space-between;
+        flex-flow: column;
+
+        max-width: 330px;
+        height: 60dvh;
+
+        background-color: white;
+        border-radius: 10px;
+        padding: 15px 10px;
+        padding-top: 0px;
+    }
+
+    #loading span {
+        border: 5px #0D0458 solid;
+
+        border-left-color: transparent;
+        border-radius: 50%;
+
+        width: 100px;
+        height: 100px;
+
+        animation: rotate 1s linear infinite;
+    }
+
+    #loading p {
+        font-size: 2rem;
+        font-weight: bold;
+        margin-bottom: 0.5em;
+    }
+
+    #confirm {
+        display: none;
+        align-items: space-between;
+        justify-content: space-between;
+        flex-flow: column;
+
+        min-height: 60dvh;
+        min-width: 330px;
+        border-radius: 20px;
+        background-color: white;
+        padding: 15px 10px;
+        padding-top: 0px;
+    }
+
+    #confirm p {
+        margin: 0;
+        margin-top: 16px;
+        font-size: 2rem;
+        font-weight: bold;
+    }
+
+    .confirm-btns {
+        display:  flex;
+        justify-content: space-around;
+        width: 100%;
+    }
+
+    #confirm button {
+        max-width: 360px;
+        width: 45%;
+        height: 30px;
+
+        color: white;
+        background-color: #A42453;
+        outline: none;
+        border: none;
+        border-radius: 10px;
+        font-weight: bold;
+        font-size: 1rem;
+    }
+
+    .confirm-info {
+        display: flex;
+        flex-flow: column;
+        justify-content: center;
+
+
+        background-color: #E8F4FD;
+        border-radius: 10px;
+        min-height: 200px;
+        line-height: normal;
+        width: 100%;
+        padding: 10px;
+    }
+
+    .confirm-info p  {
+        margin: 0 !important;
+        font-size: 1.75rem !important;
+    }
+
+    .confirm-info .value {
+        font-weight: 400 !important;
+        margin-left: 20px !important;
+    }
+
+    #success {
+        display: none;
+        align-items: center;
+        justify-content: space-between;
+        flex-flow: column;
+
+        height: 60dvh;
+        max-width: 330px;
+        border-radius: 20px;
+        background-color: white;
+        padding: 25px 15px;
+        padding-top: 5px;
+    }
+
+    #success p {
+        margin: 0;
+        font-size: 2rem;
+        font-weight: bold;
+        margin-bottom: 0.5em;
+        text-align: center;
+    }
+
+    #success img {
+        width: 150px;
+        margin-bottom: 10px;
+    }
+
+    #success button {
+        max-width: 360px;
+        width: 100%;
+        height: 30px;
+
+        color: white;
+        background-color: #A42453;
+        outline: none;
+        border: none;
+        border-radius: 10px;
+        font-weight: bold;
+        font-size: 1rem;
+    }
+
+    #fail {
+        display: none;
+        align-items: center;
+        justify-content: space-between;
+        flex-flow: column;
+
+        height: 60dvh;
+        max-width: 330px;
+        border-radius: 20px;
+        background-color: white;
+        padding: 25px 15px;
+        padding-top: 5px;
+    }
+
+    #fail img {
+        width: 100px;
+    }
+
+    #fail p {
+        margin: 0;
+        font-size: 2rem;
+        font-weight: bold;
+        margin-bottom: 0.5em;
+        text-align: center;
+    }
+
+    #fail button {
+        max-width: 360px;
+        width: 100%;
+        height: 30px;
+
+        color: white;
+        background-color: #A42453;
+        outline: none;
+        border: none;
+        border-radius: 10px;
+        font-weight: bold;
+        font-size: 1rem;
+    }
+
+    @keyframes rotate {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+</style>
+<script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+<div class="checkin-container">
+    <div id="scanner-container">
+        <h1 class="ambiente-label">Valide sua presença</h1>
+        <div class="reader-container">
+            <div id="reader">
+                <img src="{% static 'assets/scannerIcon.svg' %}" alt="">
+                <button id="activeScannerBtn">Ativar Câmera</button>
+                <p>Permita a utilização da sua câmera para começar a leitura.</p>
+            </div>
+        </div>
+    </div>
+    <div id="loading">
+        <p>Validando CheckIn</p>
+        <span class="loader"></span>
+        <div style="height: 100px;"></div>
+    </div>
+    <div id="confirm">
+        <p>Confirmar CheckIn?</p>
+
+        <div class="confirm-info">
+            <p><strong>Evento:</strong></p>
+            <p class="value">{{ evento.titulo }}</p>
+            <p><strong>Horário:</strong></p>
+            <p class="value" id="time-value">00:00:00</p>
+        </div>
+
+        <div class="confirm-btns">
+            <button id="scanner-cancel-btn" class="cancel">Cancelar</button>
+            <button id="scanner-ok-btn" class="ok">Confirmar</button>
+        </div>
+    </div>
+    <div id="success">
+        <p>CheckIn realizado com sucesso!</p>
+        <img src="{% static 'assets/SuccessIcon.svg' %}" alt="">
+        <button id="scanner-leave-btn">Sair</button>
+    </div>
+    <div id="fail">
+        <p id="error-value">Erro ao validar CheckIn</p>
+        <img src="{% static 'assets/FailIcon.svg' %}" alt="">
+        <button id="scanner-try-again-btn">Tentar Novamente</button>
+    </div>
+</div>
+
+<script>
+    let code, local
+
+    const activeCameraBtn = document.getElementById('activeScannerBtn')
+    const confirmBtn = document.getElementById('scanner-ok-btn')
+    const cancelBtn = document.getElementById('scanner-cancel-btn')
+    const tryAgainBtn = document.getElementById('scanner-try-again-btn')
+    const LeaveBtn = document.getElementById('scanner-leave-btn')
+
+    const timeConfirmValue = document.getElementById('time-value')
+    const errorValue = document.getElementById('error-value')
+
+    function show(step) {
+    const etapas = ['scanner-container', 'loading', 'confirm', 'success', 'fail']
+    etapas.forEach(e => {
+        const el = document.getElementById(e)
+        if (el) el.style.display = (e === step) ? 'flex' : 'none'
+    })
+    }
+    
+    const scanner = new Html5Qrcode("reader")
+    
+    const qrboxFunction = (viewfinderWidth, viewfinderHeight) => {
+        let minEdgePercentage = 0.8;
+
+        let minEdgeSize = Math.min(viewfinderWidth, viewfinderHeight);
+        let qrboxSize = Math.floor(minEdgeSize * minEdgePercentage);
+
+        console.log(qrboxSize, qrboxSize*2)
+        
+        return { width: qrboxSize, height: qrboxSize }
+    }
+    
+    const onScanSuccess = (decodedText, decodedResult) => {
+        scanner.stop()
+        code = decodedText
+
+        const nowDate = (new Date()).toLocaleString('pt-BR', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: false
+        }).replace(',', ' -')
+
+        timeConfirmValue.innerHTML = nowDate
+        show('confirm')
+    }
+
+    const startScanner = () => {
+        scanner.start(
+            { facingMode: "environment" },
+            {
+                fps: 10,
+                qrbox: qrboxFunction
+            },
+            onScanSuccess
+        ).catch(err => {
+            console.error("Erro ao iniciar scanner", err)
+        })
+    }
+
+    const getCookie = (name) => {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    
+    activeCameraBtn.addEventListener('click', startScanner)
+    cancelBtn.addEventListener('click', () => {
+        startScanner()
+        show('scanner-container')
+    })
+    confirmBtn.addEventListener('click', () => {
+        show('loading')
+
+        const eventId = {{ evento.id_evento }}
+        fetch(`/eventos/${eventId}/checkin`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": getCookie("csrftoken")
+            },
+            body: JSON.stringify({
+                codigo: code,
+            })
+        })
+        .then(response => {
+            if (response.status == 202) {
+                return show('success')
+            }
+            
+            response.json().then(data => {
+                errorValue.innerText = data.erro
+                show('fail')
+            })
+        })
+        .catch(error => {
+            console.error("Erro ao enviar dados", error);
+
+            let errorMsg = error.response?.data?.error
+            errorValue.innerText = errorMsg
+        });
+        
+    })
+    tryAgainBtn.addEventListener('click', () => {
+        startScanner()
+        show('scanner-container')
+    })
+    LeaveBtn.addEventListener('click', () => {
+        window.location.href = '/'
+    })
+</script>
+{% endblock %}
