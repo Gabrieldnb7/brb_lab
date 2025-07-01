@@ -560,6 +560,7 @@ body {
 
 /* Card individual do evento */
 .evento-card {
+    width: 300px;
     background: #E8F4FD;
     border-radius: 15px;
     padding: 20px;
@@ -905,6 +906,10 @@ body {
 
 @media (min-width: 768px) {
     .eventos-list {
-        width: 600px;
+        width: 410px;
+    }
+
+    .evento-card {
+        width: 410px;
     }
 }
